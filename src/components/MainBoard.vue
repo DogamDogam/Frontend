@@ -16,7 +16,7 @@
                     post list
                 </b-cow>
                 <b-cow>
-                    view post
+                    <view-post></view-post>
                 </b-cow>
             </b-row>
         </b-container>

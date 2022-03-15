@@ -8,7 +8,13 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import ViewPost from './components/ViewPost'
+import State from './components/State'
+
 Vue.config.productionTip = false
+
+Vue.component('view-post', ViewPost)
+Vue.component('state', State)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
