@@ -10,7 +10,6 @@
                       <form id="uploadform">
                         <input ref="image" id="uploadinput" type="file" name="image" accept="image/*"
                         class="hidden" @change="ImageUpload()">
-                        <p> Image Upload </p>
                       </form>
                     </div>
                 </b-col>
@@ -72,31 +71,4 @@ export default {
 </script>
 
 <style scoped>
-  #uploadbox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -250px;
-    width: 500px;
-    height: 200px;
-    border: 4px dashed rgb(0, 0, 0);
-  }
-  #uploadbox p {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    line-height: 170px;
-    color: #000000;
-    font-family: Arial;
-  }
-  #uploadinput {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    opacity: 0;
-  }
 </style>

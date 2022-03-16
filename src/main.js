@@ -10,11 +10,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import ViewPost from './components/ViewPost'
 import State from './components/State'
+import WritePost from './components/WritePost'
 
 Vue.config.productionTip = false
 
 Vue.component('view-post', ViewPost)
 Vue.component('state', State)
+Vue.component('write-post', WritePost)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
