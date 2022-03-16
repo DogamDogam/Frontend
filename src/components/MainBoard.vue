@@ -46,12 +46,10 @@ export default {
 .body {
     max-width: 100%;
 }
-#header-page b-cow {
-    padding: 0;
+#header-page {
     background: aquamarine;
 }
-#main-page b-cow {
-    padding: 0;
+#main-page {
     background: pink;
 }
 </style>
