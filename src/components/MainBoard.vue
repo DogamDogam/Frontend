@@ -7,7 +7,7 @@
                 </b-col>
                 <b-col style="text-align: right">
                     <button @click="onVieModeChanged('viewpost')">임시버튼</button>
-                    <button @click="onVieModeChanged('writepost')">write post</button>
+                    <button @click="writeOnClick()">write post</button>
                     <button>dearling list</button>
                     <button>login</button>
                 </b-col>
@@ -37,6 +37,9 @@ export default {
     onVieModeChanged: function (mode) {
       console.log(mode)
       this.viewMode = mode
+    },
+    writeOnClick: function () {
+      this.$router.push('WritePost')
     }
   }
 }
