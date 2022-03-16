@@ -1,27 +1,46 @@
 <template>
-    <div id="mainboard">
+    <div id="Mainboard">
         <b-container class="body">
             <b-row id="header-page" cols="2">
-                <b-cow >
+                <b-col>
                     <button>sort</button>
-                </b-cow>
-                <b-cow style="text-align: right">
-                    <button>write post</button>
+                </b-col>
+                <b-col style="text-align: right">
+                    <button @click="onVieModeChanged('viewpost')">임시버튼</button>
+                    <button @click="onVieModeChanged('writepost')">write post</button>
                     <button>dearling list</button>
                     <button>login</button>
-                </b-cow>
+                </b-col>
             </b-row>
             <b-row id="main-page" cols="2">
-                <b-cow >
+                <b-col>
                     post list
-                </b-cow>
-                <b-cow>
-                    <view-post></view-post>
-                </b-cow>
+                </b-col>
+                <b-col>
+                    <write-post v-if="viewMode =='writepost'"></write-post>
+                    <view-post v-if="viewMode =='viewpost'"></view-post>
+                </b-col>
             </b-row>
         </b-container>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'MainBoard',
+  data () {
+    return {
+      viewMode: 'writepost'
+    }
+  },
+  methods: {
+    onVieModeChanged: function (mode) {
+      console.log(mode)
+      this.viewMode = mode
+    }
+  }
+}
+</script>
 
 <style scoped>
 .body {
