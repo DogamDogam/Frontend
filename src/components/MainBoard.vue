@@ -14,7 +14,7 @@
             </b-row>
             <b-row id="main-page" cols="2">
                 <b-col>
-                    post list
+                    <post-list></post-list>
                 </b-col>
                 <b-col>
                     <write-post v-if="viewMode =='writepost'"></write-post>

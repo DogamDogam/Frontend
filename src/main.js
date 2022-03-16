@@ -11,12 +11,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ViewPost from './components/ViewPost'
 import State from './components/State'
 import WritePost from './components/WritePost'
+import PostList from './components/PostList'
+import PostBox from './components/PostBox'
 
 Vue.config.productionTip = false
 
 Vue.component('view-post', ViewPost)
 Vue.component('state', State)
 Vue.component('write-post', WritePost)
+Vue.component('post-list', PostList)
+Vue.component('post-box', PostBox)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
