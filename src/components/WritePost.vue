@@ -1,17 +1,13 @@
 <template>
     <div id="WritePost" class="d-grid gap-2">
-        <b-container fluid>
+      <br>
+        <b-container fluid class="d-grid gap-2">
             <b-row>
                 <b-col id="upload_area">
-                    <div v-if="image">
-                      <img :src="image" alt="image">
-                    </div>
-                    <div v-else @click="Upload_areaClicked()">
-                      <form id="uploadform">
-                        <input ref="image" id="uploadinput" type="file" name="image" accept="image/*"
-                        class="hidden" @change="ImageUpload()">
-                      </form>
-                    </div>
+                  <div class="file-drop-area">
+                    <span class="file-msg">파일 업로드</span>
+                    <input class="file-input" type="file" accept="image/*">
+                  </div>
                 </b-col>
             </b-row>
         </b-container>
@@ -64,6 +60,7 @@
               </b-col>
             </b-row>
         </b-container>
+        <br>
     </div>
 </template>
 
@@ -100,4 +97,36 @@ export default {
 </script>
 
 <style scoped>
+
+  .file-drop-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 450px;
+    max-width: 100%;
+    padding: 25px;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+    transition: 0.2s;
+  }
+
+  .file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+   width: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .file-msg {
+    font-size: small;
+    font-weight: 300;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 </style>
