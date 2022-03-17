@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import MainBoard from '@/components/MainBoard'
 import ViewPost from '@/components/ViewPost'
-import WritePost from '@/components/WritePost'
+import DealingList from '@/components/DealingList'
 
 Vue.use(Router)
 
@@ -25,8 +25,8 @@ export default new Router({
       component: ViewPost
     },
     {
-      path: '/WritePost',
-      name: 'WritePost',
-      component: WritePost
+      path: '/DealingList',
+      name: 'DealingList',
+      component: DealingList
     }
   ]})

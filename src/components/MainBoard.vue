@@ -7,8 +7,8 @@
                 </b-col>
                 <b-col style="text-align: right">
                     <button @click="onViewModeChanged('viewpost')">임시버튼</button>
-                    <button @click="writeOnClick()">write post</button>
-                    <button>dearling list</button>
+                    <button @click="onViewModeChanged('writepost')">write post</button>
+                    <button @click="dealingOnClick()">dealing list</button>
                     <button>login</button>
                 </b-col>
             </b-row>
@@ -38,8 +38,8 @@ export default {
       console.log(mode)
       this.viewMode = mode
     },
-    writeOnClick: function () {
-      this.$router.push('WritePost')
+    dealingOnClick: function () {
+      this.$router.push('DealingList')
     }
   }
 }

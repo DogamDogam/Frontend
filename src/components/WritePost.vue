@@ -15,7 +15,7 @@
             <b-row>
                 <b-col id="title_area">
                   <b-form-input
-                  :id="text"
+                  :id="title"
                   placeholder="제목"
                   v-model="title"
                   >
@@ -25,7 +25,7 @@
             <b-row>
                 <b-col id="price_area">
                     <b-form-input
-                    :id="number"
+                    :id="price"
                     placeholder="가격"
                     v-model="price"
                     >
@@ -33,7 +33,7 @@
                 </b-col>
                 <b-col id="place_area">
                     <b-form-input
-                    :id="text"
+                    :id="place"
                     placeholder="장소"
                     v-model="place"
                     ></b-form-input>
@@ -44,7 +44,7 @@
                     <b-form-textarea
                       label
                       class="p-2 bg-light border"
-                      id="textarea"
+                      id="description"
                       v-model="description"
                       placeholder="상품 정보와 거래 내용을 입력해주세요!"
                       rows="3"
@@ -69,12 +69,13 @@ export default {
   data () {
     return {
       image: '',
+      title: '',
       place: '',
       price: '',
       description: ''
     }
   },
-  method: {
+  methods: {
     ImageUpload () {
       this.image = this.$refs['image'].files[0]
     },
@@ -115,7 +116,7 @@ export default {
     left: 0;
     top: 0;
     height: 100%;
-   width: 100%;
+    width: 100%;
     cursor: pointer;
     opacity: 0;
   }
