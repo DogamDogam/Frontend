@@ -13,6 +13,29 @@
         </b-container>
     </div>
 </template>
+<script>
+import PostService from '../services/PostService'
+export default {
+  name: 'Posts',
+  data () {
+    return {
+      posts: {},
+      post: []
+    }
+  },
+  methods: {
+    getPosts () {
+      PostService.getPosts().then((response) => {
+        console.log(response.data)
+        this.posts = response.data
+      })
+    }
+  },
+  created () {
+    this.getPosts()
+  }
+}
+</script>
 
 <style scoped>
 .body {
