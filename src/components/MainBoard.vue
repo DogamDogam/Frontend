@@ -6,7 +6,7 @@
                     <button>sort</button>
                 </b-col>
                 <b-col style="text-align: right">
-                    <button @click="onVieModeChanged('viewpost')">임시버튼</button>
+                    <button @click="onViewModeChanged('viewpost')">임시버튼</button>
                     <button @click="writeOnClick()">write post</button>
                     <button>dearling list</button>
                     <button>login</button>
@@ -34,7 +34,7 @@ export default {
     }
   },
   methods: {
-    onVieModeChanged: function (mode) {
+    onViewModeChanged: function (mode) {
       console.log(mode)
       this.viewMode = mode
     },
