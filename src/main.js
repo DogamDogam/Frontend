@@ -13,6 +13,7 @@ import State from './components/State'
 import WritePost from './components/WritePost'
 import PostList from './components/PostList'
 import PostBox from './components/PostBox'
+import SaleList from './components/SaleList'
 
 Vue.config.productionTip = false
 
@@ -21,6 +22,7 @@ Vue.component('state', State)
 Vue.component('write-post', WritePost)
 Vue.component('post-list', PostList)
 Vue.component('post-box', PostBox)
+Vue.component('sale-list', SaleList)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
