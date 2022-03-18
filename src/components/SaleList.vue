@@ -1,5 +1,6 @@
 <template>
     <div>
+        SaleList
         <div>
             <button>Saling Btn</button>
             <button>Saled Btn</button>
