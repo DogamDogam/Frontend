@@ -32,7 +32,7 @@ export default {
     }
   },
   created () {
-    this.getPosts()
+    // this.getPosts()
   }
 }
 </script>

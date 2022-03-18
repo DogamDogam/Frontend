@@ -65,9 +65,17 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
+      post: {
+        image: '',
+        title: '',
+        place: '',
+        price: '',
+        description: ''
+      },
       image: '',
       title: '',
       place: '',
@@ -89,6 +97,30 @@ export default {
       form.append('place', this.place)
       form.append('price', this.price)
       form.append('description', this.description)
+
+      this.post = {
+        image: this.image,
+        title: this.title,
+        place: this.place,
+        price: this.price,
+        description: this.description
+      }
+
+      axios
+        .post(
+          'http://localhost:9090/api/posts',
+          JSON.stringify(this.post),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          alert(error)
+        })
     },
     onCancelClicked () {
 

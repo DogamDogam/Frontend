@@ -5,9 +5,6 @@ class PostService {
   getPosts () {
     return axios.get(POST_API_BASE_URL)
   }
-  postPosts () {
-    return axios.post(POST_API_BASE_URL)
-  }
 }
 
 export default new PostService()
