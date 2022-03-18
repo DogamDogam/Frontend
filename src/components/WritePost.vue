@@ -56,9 +56,10 @@
                 </b-col>
             </b-row>
             <b-row>
-              <b-col id="button_area">
-                <b-button id="postbutton" @click="onPostClicked()">게시하기</b-button>
-                <b-button id="cancelbutton" @click="onCancelClicked()">취소하기</b-button>
+              <b-col id="button_area" style="text-align: right">
+                <b-button id="postbutton" @click="onPostClicked()" >
+                  글 쓰기 <b-icon icon="pencil"></b-icon></b-button>
+                <b-button id="cancelbutton" @click="onCancelClicked()" >취소하기</b-button>
               </b-col>
             </b-row>
         </b-container>
@@ -112,9 +113,11 @@ export default {
           })
         .then(response => {
           console.log(response)
+          alert('글쓰기 성공!')
         })
         .catch(error => {
-          alert(error)
+          console.log(error)
+          alert('글쓰기 실패!')
         })
     },
     onCancelClicked () {
@@ -155,6 +158,11 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  #postbutton,#cancelbutton {
+    background-color: rgb(255, 154, 22);
+    color: rgb(34, 34, 34);
+
   }
 
 </style>

@@ -1,13 +1,12 @@
 <template>
     <div class="postbox_head">
         <b-container class="body">
-            <b-row cols="2">
-                <b-col id="proImg">
-                    <b-img src="https://picsum.photos/300/150/?image=41" rounded fluid></b-img>
-                </b-col>
+            <b-row>
+            <b-col sm="auto" id="proImg">
+              <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img></b-col>
                 <b-col class="d-grid gap-2" id="proTex">
-                    <div>Title</div>
-                    <div>Price</div>
+                    <div id="title">Title</div>
+                    <div id="price">Price</div>
                 </b-col>
             </b-row>
         </b-container>
@@ -43,16 +42,20 @@ export default {
 
 <style scoped>
   .postbox_head {
-    background: gray;
+    background: rgb(247, 203, 138);
     border-radius: 10px;
+    margin: 10px;
   }
 
 #proImg, #proTex {
-    margin-top : 2%;
-    margin-bottom: 2%;
+    margin-top : 5%;
+    margin-bottom: 5%;
 }
 #proTex div {
     border: 2px dotted black;
 }
 
+#title, #price {
+  width: auto;
+}
 </style>
