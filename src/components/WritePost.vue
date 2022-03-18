@@ -49,6 +49,7 @@
                       placeholder="상품 정보와 거래 내용을 입력해주세요!"
                       rows="3"
                       max-rows="6"
+                      no-resize
                       >
                     </b-form-textarea>
                 </b-col>
@@ -91,13 +92,6 @@ export default {
       this.$ref['image'].click()
     },
     onPostClicked () {
-      let form = new FormData()
-
-      form.append('image', this.image)
-      form.append('place', this.place)
-      form.append('price', this.price)
-      form.append('description', this.description)
-
       this.post = {
         image: this.image,
         title: this.title,
