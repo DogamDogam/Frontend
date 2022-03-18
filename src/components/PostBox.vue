@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="postbox_head">
         <b-container class="body">
             <b-row cols="2">
                 <b-col id="proImg">
-                    Product Image
+                    <b-img src="https://picsum.photos/300/150/?image=41" rounded fluid></b-img>
                 </b-col>
-                <b-col id="proTex">
+                <b-col class="d-grid gap-2" id="proTex">
                     <div>Title</div>
                     <div>Price</div>
                 </b-col>
@@ -19,7 +19,11 @@ export default {
   name: 'Posts',
   data () {
     return {
-      posts: {},
+      posts: {
+        image: '',
+        title: '',
+        price: ''
+      },
       post: []
     }
   },
@@ -38,14 +42,17 @@ export default {
 </script>
 
 <style scoped>
-.body {
-    border: 2px dotted black;
-}
+  .postbox_head {
+    background: gray;
+    border-radius: 10px;
+  }
 
-#proImg {
-    border: 2px dotted black;
+#proImg, #proTex {
+    margin-top : 2%;
+    margin-bottom: 2%;
 }
 #proTex div {
     border: 2px dotted black;
 }
+
 </style>

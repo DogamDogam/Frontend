@@ -5,7 +5,8 @@
             <b-row>
                 <b-col id="upload_area">
                   <div class="file-drop-area">
-                    <span class="file-msg">파일 업로드</span>
+                    <b-img v-bind="image" v-if="image"></b-img>
+                    <span class="file-msg" v-else>파일 업로드</span>
                     <input class="file-input" type="file" accept="image/*">
                   </div>
                 </b-col>
