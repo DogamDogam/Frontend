@@ -1,6 +1,6 @@
 <template>
     <div id="Mainboard" class="main">
-        <b-container class="body">
+        <b-container fluid class="body">
             <b-row id="header-page" cols="2">
                 <b-col>
                     <b-button variant="outline-warning"><b-icon icon="justify"></b-icon></b-button>
@@ -17,7 +17,7 @@
                     <post-list></post-list>
                 </b-col>
                 <b-col>
-                    <write-post id="writepost" v-if="viewMode =='writepost'"></write-post>
+                    <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto; "></write-post>
                     <view-post v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>

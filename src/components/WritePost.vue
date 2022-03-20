@@ -1,13 +1,13 @@
 <template>
-    <div id="WritePost" class="d-grid gap-2">
+    <div id="WritePost" class="d-grid gap-2" style="postion: relative">
       <br>
         <b-container fluid class="d-grid gap-2">
             <b-row>
                 <b-col id="upload_area">
                   <div class="file-drop-area">
-                    <b-img v-bind="image" v-if="image"></b-img>
-                    <span class="file-msg" v-else>파일 업로드</span>
-                    <input class="file-input" type="file" accept="image/*">
+                    <img :src="image" v-if="image.length>0">
+                    <label for="ImageUpload" v-else>사진 업로드</label>
+                    <input class="file-input" @change="ImageUpload" type="file" accept="image/*">
                   </div>
                 </b-col>
             </b-row>
@@ -87,11 +87,15 @@ export default {
     }
   },
   methods: {
-    ImageUpload () {
-      this.image = this.$refs['image'].files[0]
-    },
-    Upload_areaClicked () {
-      this.$ref['image'].click()
+    ImageUpload (event) {
+      var input = event.target
+      if (input.files && input.files[0]) {
+        var reader = new FileReader()
+        reader.onload = (e) => {
+          this.image = e.target.result
+        }
+        reader.readAsDataURL(input.files[0])
+      }
     },
     onPostClicked () {
       this.post = {
@@ -163,6 +167,11 @@ export default {
     background-color: rgb(255, 154, 22);
     color: rgb(34, 34, 34);
 
+  }
+  img {
+    overflow: auto;
+    height: 200px;
+    border-radius: 10px;
   }
 
 </style>
