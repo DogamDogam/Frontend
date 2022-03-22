@@ -12,21 +12,21 @@
         </b-row>
 
         <b-row class="text">
-          <b-col>Title</b-col>
-          <b-col>Category</b-col>
+          <b-col id="title">Title</b-col>
+          <b-col id="category">Category</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col>Price</b-col>
+          <b-col id="price">Price</b-col>
         </b-row>
 
-        <b-row>
-          <b-col class="text">Description</b-col>
+        <b-row class="text">
+          <b-col id="description">Description</b-col>
         </b-row>
 
         <b-row>
           <b-col>
-            <div class="mb-3 text">
+            <div class="mb-3" id="button">
               <b-button v-b-toggle.my-collapse class="toggle_button">
             <b-icon icon="caret-down"></b-icon>
           </b-button>
@@ -47,14 +47,25 @@
 }
 .text {
   text-align: center;
+  width: 50%;
+  height: 50px;
+  margin-left: 25%;
+}
+#button {
+  text-align: center;
+  width: 50%;
+  height: 50px;
+  margin-left: 25%;
 }
 
   #my-collapse {
-    border: 1px solid black;
+    border: 1px solid rgb(255, 154, 22);
     border-radius: 10px;
+    margin: 10px;
   }
   .comment_board {
     margin: 10px;
+    position: relative;
   }
   .Image_area {
     text-align: center;
@@ -63,8 +74,21 @@
     display: inline-block;
   }
   .toggle_button {
-    width: 90%;
+    width: 95%;
   }
+  #price, #description {
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+  }
+  #title, #category {
+    background-color: white;
+    border-radius: 10px;
+  }
+  #category {
+    margin-left: 10px;
+  }
+
 </style>
 
 <script>

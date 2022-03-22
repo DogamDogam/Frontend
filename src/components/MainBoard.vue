@@ -18,7 +18,7 @@
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto; "></write-post>
-                    <view-post v-if="viewMode =='viewpost'"></view-post>
+                    <view-post id="viewpost" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>
         </b-container>
@@ -63,9 +63,10 @@ export default {
     margin: 10px;
 
 }
-#writepost {
+#writepost, #viewpost {
   margin-top: 50px;
   background-color: rgb(247, 203, 138);
   border-radius: 10px;
 }
+
 </style>

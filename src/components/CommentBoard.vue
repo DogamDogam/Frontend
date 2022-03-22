@@ -1,8 +1,8 @@
 <template>
   <b-container class="comment_body">
     <b-row>
-      <b-col cols="2">
-        <b-icon-person-fill font-scale="3"></b-icon-person-fill>
+      <b-col class="icon_area" cols="2">
+          <b-avatar id="user_icon" rounded :src="user_icon"></b-avatar>
       </b-col>
       <b-col>
         <b-form-textarea
@@ -27,18 +27,24 @@
 export default {
   data () {
     return {
-      comment: ''
+      comment: '',
+      user_icon: 'https://placekitten.com/300/300'
     }
   }
 }
 </script>
 
 <style scoped>
-  .comment_area {
-    height: 30px;
-  }
+  .comment_body {
+    position: relative;
+    width: auto;
 
-  .comment_area {
-    border-color: black;
+  }
+  .icon_area {
+    text-align: center;
+    width: 10%;
+  }
+  #user_icon {
+    margin-top: 5px;
   }
 </style>
