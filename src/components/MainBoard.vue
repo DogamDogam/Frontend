@@ -1,6 +1,6 @@
 <template>
     <div id="Mainboard" class="main">
-        <b-container fluid class="body">
+        <b-container class="body">
             <b-row id="header-page" cols="2">
                 <b-col>
                     <b-button variant="outline-warning"><b-icon icon="justify"></b-icon></b-button>
@@ -9,7 +9,8 @@
                     <b-button variant="outline-warning" @click="onViewModeChanged('viewpost')">임시버튼</b-button>
                     <b-button variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
-                    <b-button variant="outline-warning">로그인</b-button>
+                    <b-button variant="outline-warning" v-if="!isLogined" @click="loginOnClick()">로그인</b-button>
+                    <b-button variant="outline-warning" v-if="isLogined" @click="logoutOnClick()">로그아웃</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page" cols="2">
@@ -17,8 +18,8 @@
                     <post-list></post-list>
                 </b-col>
                 <b-col>
-                    <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto; "></write-post>
-                    <view-post id="viewpost" v-if="viewMode =='viewpost'"></view-post>
+                    <write-post id="writepost" v-if="viewMode =='writepost'"></write-post>
+                    <view-post v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>
         </b-container>
@@ -30,7 +31,8 @@ export default {
   name: 'MainBoard',
   data () {
     return {
-      viewMode: 'writepost'
+      viewMode: 'writepost',
+      isLogined: false
     }
   },
   methods: {
@@ -40,6 +42,19 @@ export default {
     },
     dealingOnClick: function () {
       this.$router.push('DealingList')
+    },
+    kakaoLogin: function () {
+      window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/kakao/callback&response_type=code', 'target')
+    },
+    loginOnClick: function () {
+      this.kakaoLogin()
+      alert('로그인 성공')
+      this.isLogined = true
+    },
+    logoutOnClick: function () {
+      window.open('http://localhost:9090/logout', 'target')
+      alert('로그아웃 성공')
+      this.isLogined = false
     }
   }
 }
@@ -63,10 +78,9 @@ export default {
     margin: 10px;
 
 }
-#writepost, #viewpost {
+#writepost {
   margin-top: 50px;
   background-color: rgb(247, 203, 138);
   border-radius: 10px;
 }
-
 </style>
