@@ -40,6 +40,21 @@
                     ></b-form-input>
                 </b-col>
             </b-row>
+            <b-row id="aaa">
+              <b-col>
+                <b-button>-</b-button>
+                <input value="1">
+                <b-button>+</b-button>
+              </b-col>
+              <b-col>
+                Category
+                <select>
+                  <option selected="selected">A</option>
+                  <option>B</option>
+                  <option>C</option>
+                </select>
+              </b-col>
+            </b-row>
             <b-row>
                 <b-col id="description_area">
                     <b-form-textarea

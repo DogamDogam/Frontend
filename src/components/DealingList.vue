@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-container class="body">
-            <b-row id="aaa">
+            <b-row id="dealingMain">
                 <b-col style="text-align: left">
                     <a href="/MainBoard">
                         <b-button>Logo</b-button>
@@ -47,7 +47,7 @@ export default {
     max-height: 100%;
 }
 
-#aaa{
+#dealingMain{
     width: 100%;
     height: 100%;
     display: inline-block;
