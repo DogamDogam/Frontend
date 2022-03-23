@@ -40,7 +40,7 @@
                     ></b-form-input>
                 </b-col>
             </b-row>
-            <b-row id="aaa">
+            <b-row>
               <b-col>
                 <b-button>-</b-button>
                 <input value="1">

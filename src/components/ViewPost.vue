@@ -13,7 +13,11 @@
 
         <b-row class="text">
           <b-col id="title">Title</b-col>
+        </b-row>
+
+        <b-row class="text">
           <b-col id="category">Category</b-col>
+          <b-col id="people">People</b-col>
         </b-row>
 
         <b-row class="text">
@@ -76,17 +80,14 @@
   .toggle_button {
     width: 95%;
   }
-  #price, #description {
+  #price, #description, #title {
     width: 300px;
     background-color: white;
     border-radius: 10px;
   }
-  #title, #category {
+  #category, #people {
     background-color: white;
     border-radius: 10px;
-  }
-  #category {
-    margin-left: 10px;
   }
 
 </style>
