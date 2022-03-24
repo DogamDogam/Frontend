@@ -42,16 +42,19 @@
             </b-row>
             <b-row>
               <b-col>
-                <b-button>-</b-button>
-                <b-form-input :id="people" v-model="people"></b-form-input>
-                <b-button>+</b-button>
+                <b-button @click="decrease()">-</b-button>
+                <b-form-input id="numOfpeople" v-model="numOfpeople" disabled>{{numOfpeople}}</b-form-input>
+                <b-button @click="increase()">+</b-button>
               </b-col>
               <b-col>
                 Category
-                <select :id="category" v-model="category">
-                  <option value="A" selected="selected">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
+                <select  v-model="selectedItem">
+                  <option
+                  v-for   ="each in items"
+                  :key    ="each"
+                  v-text  ="each"
+                  :value  ="each"
+                  ></option>
                 </select>
               </b-col>
             </b-row>
@@ -87,21 +90,23 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      items: ['식재료', '의류', '가구', '잡화'],
+      selectedItem: '식재료',
       post: {
         image: '',
         title: '',
         place: '',
         price: '',
-        category: 'A',
-        people: '0',
+        category: '',
+        numOfpeople: 0,
         description: ''
       },
       image: '',
       title: '',
       place: '',
       price: '',
-      category: 'A',
-      people: '0',
+      category: '',
+      numOfpeople: 0,
       description: ''
     }
   },
@@ -116,14 +121,23 @@ export default {
         reader.readAsDataURL(input.files[0])
       }
     },
+    increase () {
+      this.numOfpeople++
+    },
+    decrease () {
+      if (this.numOfpeople > 0) { this.numOfpeople-- }
+    },
+    changeCategory () {
+      console.log(this.selectedItem)
+    },
     onPostClicked () {
       this.post = {
-        image: this.image,
+        image: '임시image',
         title: this.title,
         place: this.place,
         price: this.price,
-        category: this.category,
-        people: this.people,
+        category: this.selectedItem,
+        numOfpeople: this.numOfpeople,
         description: this.description
       }
 
@@ -148,6 +162,7 @@ export default {
     onCancelClicked () {
 
     }
+
   }
 }
 </script>
