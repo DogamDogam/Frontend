@@ -89,6 +89,9 @@
     background-color: white;
     border-radius: 10px;
   }
+  #category {
+    margin-right: 5px;
+  }
 
 </style>
 

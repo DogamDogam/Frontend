@@ -1,11 +1,14 @@
 <template>
     <div id="Mainboard" class="main">
-        <b-container class="body">
-            <b-row id="header-page" cols="2">
-                <b-col>
+        <b-container class="body" fluid="md">
+            <b-row align-v="start" id="header-page">
+                <b-col cols="auto">
                     <b-button variant="outline-warning"><b-icon icon="justify"></b-icon></b-button>
                 </b-col>
-                <b-col style="text-align: right">
+                <b-col cols="20" md="auto">
+                    <p id="Logo">DogamDogam</p>
+                </b-col>
+                <b-col cols="4" md style="text-align: right">
                     <b-button variant="outline-warning" @click="onViewModeChanged('viewpost')">임시버튼</b-button>
                     <b-button variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
@@ -18,7 +21,7 @@
                     <post-list></post-list>
                 </b-col>
                 <b-col>
-                    <write-post id="writepost" v-if="viewMode =='writepost'"></write-post>
+                    <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
                     <view-post v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>
@@ -61,6 +64,13 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .body {
     max-width: 100%;
 }
@@ -82,5 +92,12 @@ export default {
   margin-top: 50px;
   background-color: rgb(247, 203, 138);
   border-radius: 10px;
+}
+#Logo {
+  text-align: center;
+  font-size: 20px;
+  font-family: yg-jalnan;
+  color: #2F4F4F;
+  margin-top: 5px;
 }
 </style>
