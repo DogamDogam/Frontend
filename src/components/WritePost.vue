@@ -43,15 +43,15 @@
             <b-row>
               <b-col>
                 <b-button>-</b-button>
-                <input value="1">
+                <b-form-input :id="people" v-model="people"></b-form-input>
                 <b-button>+</b-button>
               </b-col>
               <b-col>
                 Category
-                <select>
-                  <option selected="selected">A</option>
-                  <option>B</option>
-                  <option>C</option>
+                <select :id="category" v-model="category">
+                  <option value="A" selected="selected">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
                 </select>
               </b-col>
             </b-row>
@@ -92,12 +92,16 @@ export default {
         title: '',
         place: '',
         price: '',
+        category: 'A',
+        people: '0',
         description: ''
       },
       image: '',
       title: '',
       place: '',
       price: '',
+      category: 'A',
+      people: '0',
       description: ''
     }
   },
@@ -118,6 +122,8 @@ export default {
         title: this.title,
         place: this.place,
         price: this.price,
+        category: this.category,
+        people: this.people,
         description: this.description
       }
 
