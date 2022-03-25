@@ -10,13 +10,13 @@
             </b-row>
             <b-row class="body_button" align-v="center">
                 <b-col sm>
-                    <b-button class="sale_button" variant="outline-warning" @click="onViewModeChanged('saleList')">selesListBtn</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('saleList')">판매내역</b-button>
                 </b-col>
                 <b-col sm>
-                    <b-button class="purchase_button" variant="outline-warning" @click="onViewModeChanged('purchaseList')">purchaseListBtn</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('purchaseList')">구매내역</b-button>
                 </b-col>
                 <b-col sm>
-                    <b-button class="like_button" variant="outline-warning" @click="onViewModeChanged('likeList')">likeListBtn</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('likeList')">관심목록</b-button>
                 </b-col>
             </b-row>
             <b-row class="body_page">
@@ -72,4 +72,5 @@ p {
   font-family: yg-jalnan;
   color: #2F4F4F;
 }
+
 </style>

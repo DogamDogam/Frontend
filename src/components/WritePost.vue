@@ -42,9 +42,9 @@
             </b-row>
             <b-row>
               <b-col>
-                <b-button>-</b-button>
                 <b-form-input :id="people" v-model="people"></b-form-input>
                 <b-button>+</b-button>
+                <b-button>-</b-button>
               </b-col>
               <b-col>
                 Category

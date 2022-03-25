@@ -2,11 +2,17 @@
     <div id="Mainboard" class="main">
         <b-container class="body" fluid="md">
             <b-row align-v="start" id="header-page">
-                <b-col cols="auto">
-                    <b-button variant="outline-warning"><b-icon icon="justify"></b-icon></b-button>
-                </b-col>
                 <b-col cols="20" md="auto">
                     <p id="Logo">DogamDogam</p>
+                </b-col>
+                <b-col cols="auto">
+                    <b-dropdown v-bind:text="sort_text" dropright>
+                      <b-dropdown-item @click="deliveryOnSelected()">배달비</b-dropdown-item>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item @click="ingredientOnSelected()">식재료</b-dropdown-item>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item @click="goodsOnSelected()">물품</b-dropdown-item>
+                    </b-dropdown>
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button variant="outline-warning" @click="onViewModeChanged('viewpost')">임시버튼</b-button>
@@ -35,7 +41,8 @@ export default {
   data () {
     return {
       viewMode: 'writepost',
-      isLogined: false
+      isLogined: false,
+      sort_text: '정렬'
     }
   },
   methods: {
@@ -58,7 +65,17 @@ export default {
       window.open('http://localhost:9090/logout', 'target')
       alert('로그아웃 성공')
       this.isLogined = false
+    },
+    deliveryOnSelected: function () {
+      this.sort_text = '배달비'
+    },
+    ingredientOnSelected: function () {
+      this.sort_text = '식재료'
+    },
+    goodsOnSelected: function () {
+      this.sort_text = '물품'
     }
+
   }
 }
 </script>
