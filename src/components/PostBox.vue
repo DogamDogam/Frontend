@@ -1,17 +1,17 @@
 <template>
     <div class="postbox_head">
-        <b-container class="body">
+        <b-container class="body" v-for="(post, index) in posts" :key="index">
             <b-row>
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
               </b-col>
               <b-col class="d-grid gap-2" id="proTex">
-                <div id="title">Title</div>
-                <div id="price">Price</div>
+                <div id="title">{{post.title}}</div>
+                <div id="price">{{post.price}}</div>
               </b-col>
               <b-col id="Peo">
                 <div>
-                  모집인원
+                  {{post.numOfpeople}}명
                 </div>
               </b-col>
             </b-row>
@@ -27,7 +27,10 @@ export default {
       posts: {
         image: '',
         title: '',
-        price: ''
+        price: '',
+        place: '',
+        description: '',
+        numOfpeople: ''
       },
       post: []
     }
@@ -37,11 +40,12 @@ export default {
       PostService.getPosts().then((response) => {
         console.log(response.data)
         this.posts = response.data
+        console.log(this.posts)
       })
     }
   },
   created () {
-    // this.getPosts()
+    this.getPosts()
   }
 }
 </script>
