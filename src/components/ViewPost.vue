@@ -45,6 +45,15 @@
       </b-container>
   </div>
 </template>
+
+<script>
+import DealingList from './DealingList.vue'
+export default {
+  components: { DealingList }
+
+}
+</script>
+
 <style scoped>
 #body{
   margin: 10px;
@@ -95,11 +104,3 @@
   }
 
 </style>
-
-<script>
-import DealingList from './DealingList.vue'
-export default {
-  components: { DealingList }
-
-}
-</script>
