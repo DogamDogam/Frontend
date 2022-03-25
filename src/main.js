@@ -18,6 +18,8 @@ import SaleList from './components/SaleList'
 import PurchaseList from './components/PurchaseList'
 import LikeList from './components/LikeList'
 
+export const EventBus = new Vue()
+
 Vue.config.productionTip = false
 
 Vue.component('view-post', ViewPost)

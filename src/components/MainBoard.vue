@@ -15,7 +15,6 @@
                     </b-dropdown>
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
-                    <b-button variant="outline-warning" @click="onViewModeChanged('viewpost')">임시버튼</b-button>
                     <b-button variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
                     <b-button variant="outline-warning" v-if="!isLogined" @click="loginOnClick()">로그인</b-button>
@@ -23,7 +22,7 @@
                 </b-col>
             </b-row>
             <b-row id="main-page" cols="2">
-                <b-col>
+                <b-col @click="onViewModeChanged('viewpost')">
                     <post-list></post-list>
                 </b-col>
                 <b-col>
