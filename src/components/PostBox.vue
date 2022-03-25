@@ -1,7 +1,7 @@
 <template>
     <div class="postbox_head">
         <b-container class="body" v-for="(post, index) in posts" :key="index">
-            <b-row>
+            <b-row @click="onViewModeChanged(index)">
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
               </b-col>
@@ -19,6 +19,7 @@
     </div>
 </template>
 <script>
+import {EventBus} from '../main'
 import PostService from '../services/PostService'
 export default {
   name: 'Posts',
@@ -36,6 +37,10 @@ export default {
     }
   },
   methods: {
+    onViewModeChanged: function (mode) {
+      console.log('보냈다: ', mode)
+      EventBus.$emit('eventGive', mode)
+    },
     getPosts () {
       PostService.getPosts().then((response) => {
         console.log(response.data)

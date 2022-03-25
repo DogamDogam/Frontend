@@ -12,20 +12,20 @@
         </b-row>
 
         <b-row class="text">
-          <b-col id="title">Title</b-col>
+          <b-col id="title">{{this.posts.title}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="category">Category</b-col>
-          <b-col id="people">People</b-col>
+          <b-col id="category">{{this.posts.category}}</b-col>
+          <b-col id="people">{{this.posts.numOfpeople}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="price">Price</b-col>
+          <b-col id="price">{{this.posts.price}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="description">Description</b-col>
+          <b-col id="description">{{this.posts.description}}</b-col>
         </b-row>
 
         <b-row>
@@ -41,16 +41,42 @@
         </b-collapse>
           </b-col>
         </b-row>
-
       </b-container>
   </div>
 </template>
 
 <script>
-import DealingList from './DealingList.vue'
+import {EventBus} from '../main'
+import PostService from '../services/PostService'
 export default {
-  components: { DealingList }
-
+  name: 'Posts',
+  data () {
+    return {
+      posts: {
+        image: '',
+        title: '',
+        price: '',
+        place: '',
+        description: '',
+        numOfpeople: ''
+      },
+      post: []
+    }
+  },
+  methods: {
+    getPosts () {
+      PostService.getPosts().then((response) => {
+        console.log(response.data)
+        EventBus.$on('eventGive', mode => {
+          console.log('받았다: ', mode)
+          this.posts = response.data[mode]
+        })
+      })
+    }
+  },
+  created () {
+    this.getPosts()
+  }
 }
 </script>
 
