@@ -42,11 +42,19 @@
             </b-row>
             <b-row>
               <b-col>
-                <b-button @click="decrease()">-</b-button>
-                <b-form-input id="numOfpeople" v-model="numOfpeople" disabled>{{numOfpeople}}</b-form-input>
-                <b-button @click="increase()">+</b-button>
+                <b-row>
+                  <b-col>
+                    <b-form-input id="numOfpeople" v-model="numOfpeople" disabled>{{numOfpeople}}</b-form-input>
+                  </b-col>
+                  <b-col cols="4">
+                    <b-button-group>
+                      <b-button @click="increase()">+</b-button>
+                      <b-button @click="decrease()">-</b-button>
+                    </b-button-group>
+                  </b-col>
+                </b-row>
               </b-col>
-              <b-col>
+              <b-col cols="3">
                 Category
                 <select  v-model="selectedItem">
                   <option
@@ -106,7 +114,7 @@ export default {
       place: '',
       price: '',
       category: '',
-      numOfpeople: 0,
+      numOfpeople: '참여인원',
       description: ''
     }
   },
@@ -122,6 +130,9 @@ export default {
       }
     },
     increase () {
+      if (this.numOfpeople === '참여인원') {
+        this.numOfpeople = 0
+      }
       this.numOfpeople++
     },
     decrease () {
