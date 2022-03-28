@@ -7,9 +7,11 @@
                 </b-col>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
-                      <b-dropdown-item @click="deliveryOnSelected()">배달비</b-dropdown-item>
+                      <b-dropdown-item @click="sort_text='정렬'">정렬</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
                       <b-dropdown-item @click="ingredientOnSelected()">식재료</b-dropdown-item>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item @click="deliveryOnSelected()">배달비</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
                       <b-dropdown-item @click="goodsOnSelected()">물품</b-dropdown-item>
                     </b-dropdown>
@@ -22,8 +24,11 @@
                 </b-col>
             </b-row>
             <b-row id="main-page" cols="2">
-                <b-col @click="onViewModeChanged('viewpost')">
+                <b-col v-if="sort_text == '정렬'" @click="onViewModeChanged('viewpost')">
                     <post-list></post-list>
+                </b-col>
+                <b-col v-else>
+                  <category-post-box v-bind:categoryProps="sort_text"></category-post-box>
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
@@ -35,7 +40,9 @@
 </template>
 
 <script>
+import CategoryPostBox from './CategoryPostBox.vue'
 export default {
+  components: { CategoryPostBox },
   name: 'MainBoard',
   data () {
     return {

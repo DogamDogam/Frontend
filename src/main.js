@@ -17,6 +17,7 @@ import CommentBoard from './components/CommentBoard'
 import SaleList from './components/SaleList'
 import PurchaseList from './components/PurchaseList'
 import LikeList from './components/LikeList'
+import CategoryPostBox from './components/CategoryPostBox'
 
 export const EventBus = new Vue()
 
@@ -27,6 +28,7 @@ Vue.component('state', State)
 Vue.component('write-post', WritePost)
 Vue.component('post-list', PostList)
 Vue.component('post-box', PostBox)
+Vue.component('category-postbox', CategoryPostBox)
 Vue.component('comment-board', CommentBoard)
 Vue.component('sale-list', SaleList)
 Vue.component('purchase-list', PurchaseList)

@@ -43,27 +43,13 @@
             <b-row>
               <b-col>
                 <b-row>
-                  <b-col>
-                    <b-form-input id="numOfpeople" v-model="numOfpeople" disabled>{{numOfpeople}}</b-form-input>
-                  </b-col>
-                  <b-col cols="4">
-                    <b-button-group>
-                      <b-button @click="increase()">+</b-button>
-                      <b-button @click="decrease()">-</b-button>
-                    </b-button-group>
-                  </b-col>
+                  <b-col>참여인원</b-col>
                 </b-row>
+                <b-row><b-col><b-form-input id="numOfpeople" v-model="numOfpeople" disabled>{{numOfpeople}}</b-form-input></b-col><b-col cols="4"><b-button-group><b-button @click="increase()">+</b-button><b-button @click="decrease()">-</b-button></b-button-group></b-col></b-row>
               </b-col>
-              <b-col cols="3">
-                Category
-                <select  v-model="selectedItem">
-                  <option
-                  v-for   ="each in items"
-                  :key    ="each"
-                  v-text  ="each"
-                  :value  ="each"
-                  ></option>
-                </select>
+              <b-col cols="5">
+                <b-row><b-col>Category</b-col></b-row>
+                <b-row><b-col><select v-model="selectedItem"><option v-for="each in items" :key ="each" v-text ="each" :value ="each"></option></select></b-col></b-row>
               </b-col>
             </b-row>
             <b-row>
@@ -98,7 +84,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      items: ['식재료', '의류', '가구', '잡화'],
+      items: ['식재료', '배달비', '물품'],
       selectedItem: '식재료',
       post: {
         image: '',
@@ -114,7 +100,7 @@ export default {
       place: '',
       price: '',
       category: '',
-      numOfpeople: '참여인원',
+      numOfpeople: '0',
       description: ''
     }
   },
@@ -130,9 +116,6 @@ export default {
       }
     },
     increase () {
-      if (this.numOfpeople === '참여인원') {
-        this.numOfpeople = 0
-      }
       this.numOfpeople++
     },
     decrease () {
