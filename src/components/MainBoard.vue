@@ -24,8 +24,10 @@
                 </b-col>
             </b-row>
             <b-row id="main-page" cols="2">
-                <b-col v-if="sort_text == '정렬'" @click="onViewModeChanged('viewpost')">
+                <b-col v-if="sort_text == '정렬'">
+                  <div @click="onViewModeChanged('viewpost')">
                     <post-list></post-list>
+                  </div>
                 </b-col>
                 <b-col v-else>
                   <category-post-box v-bind:categoryProps="sort_text"></category-post-box>
