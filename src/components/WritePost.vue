@@ -92,7 +92,7 @@ export default {
         place: '',
         price: '',
         category: '',
-        numOfpeople: 0,
+        numOfpeople: 1,
         description: ''
       },
       image: '',
@@ -100,7 +100,7 @@ export default {
       place: '',
       price: '',
       category: '',
-      numOfpeople: '0',
+      numOfpeople: '1',
       description: ''
     }
   },
@@ -119,7 +119,7 @@ export default {
       this.numOfpeople++
     },
     decrease () {
-      if (this.numOfpeople > 0) { this.numOfpeople-- }
+      if (this.numOfpeople > 1) { this.numOfpeople-- }
     },
     changeCategory () {
       console.log(this.selectedItem)
