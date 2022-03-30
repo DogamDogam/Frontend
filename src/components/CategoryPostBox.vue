@@ -1,17 +1,17 @@
 <template>
     <div v-if = "categoryProps" class="postbox_head">
-        <b-container class="body">
-            <b-row @click="onViewModeChanged(index)">
+        <b-container class="body" v-for="(post, index) in posts"  :key="index">
+            <b-row>
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
               </b-col>
               <b-col class="d-grid gap-2" id="proTex">
-                <div id="title">{{posts.title}}</div>
-                <div id="price">{{posts.price}}</div>
+                <div id="title">{{post.title}}</div>
+                <div id="price">{{post.price}}</div>
               </b-col>
               <b-col id="Peo">
                 <div>
-                  {{posts.numOfpeople}}명
+                  {{post.numOfpeople}}명
                 </div>
               </b-col>
             </b-row>
