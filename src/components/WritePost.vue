@@ -69,8 +69,7 @@
             </b-row>
             <b-row>
               <b-col id="button_area" style="text-align: right">
-                <b-button id="postbutton" @click="onPostClicked()" >
-                  글 쓰기 <b-icon icon="pencil"></b-icon></b-button>
+                <b-button id="postbutton" @click="onPostClicked()" >글 쓰기 <b-icon icon="pencil"></b-icon></b-button>
                 <b-button id="cancelbutton" @click="onCancelClicked()" >취소하기</b-button>
               </b-col>
             </b-row>
@@ -124,6 +123,14 @@ export default {
     changeCategory () {
       console.log(this.selectedItem)
     },
+    resetPost () {
+      this.title = ''
+      this.place = ''
+      this.price = ''
+      this.category = ''
+      this.numOfpeople = 1
+      this.description = ''
+    },
     onPostClicked () {
       this.post = {
         image: '임시image',
@@ -147,10 +154,12 @@ export default {
         .then(response => {
           console.log(response)
           alert('글쓰기 성공!')
+          this.resetPost()
         })
         .catch(error => {
           console.log(error)
           alert('글쓰기 실패!')
+          this.resetPost()
         })
     },
     onCancelClicked () {
