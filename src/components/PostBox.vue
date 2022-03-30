@@ -1,5 +1,5 @@
 <template>
-    <div class="postbox_head">
+    <div v-if = "posts != null" class="postbox_head">
         <b-container class="body" v-for="(post, index) in posts" :key="index">
             <b-row @click="onViewModeChanged(index)">
               <b-col sm="auto" id="proImg">
@@ -46,10 +46,14 @@ export default {
         console.log(response.data)
         this.posts = response.data
         console.log(this.posts)
+      }).catch((error) => {
+        console.log(error)
+        this.posts = {}
       })
     }
   },
   created () {
+    this.posts = {}
     this.getPosts()
   }
 }

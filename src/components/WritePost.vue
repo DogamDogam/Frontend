@@ -131,36 +131,46 @@ export default {
       this.numOfpeople = 1
       this.description = ''
     },
-    onPostClicked () {
-      this.post = {
-        image: '임시image',
-        title: this.title,
-        place: this.place,
-        price: this.price,
-        category: this.selectedItem,
-        numOfpeople: this.numOfpeople,
-        description: this.description
+    postNullCheck () {
+      if ((this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
+        alert('내용을 채워주세요!')
+        return false
       }
+      return true
+    },
+    onPostClicked () {
+      if (this.postNullCheck()) {
+        this.post = {
+          image: '임시image',
+          title: this.title,
+          place: this.place,
+          price: this.price,
+          category: this.selectedItem,
+          numOfpeople: this.numOfpeople,
+          description: this.description
+        }
 
-      axios
-        .post(
-          'http://localhost:9090/api/posts',
-          JSON.stringify(this.post),
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
+        axios
+          .post(
+            'http://localhost:9090/api/posts',
+            JSON.stringify(this.post),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+          .then(response => {
+            console.log(response)
+            alert('글쓰기 성공!')
+            this.resetPost()
+            this.$router.go()
           })
-        .then(response => {
-          console.log(response)
-          alert('글쓰기 성공!')
-          this.resetPost()
-        })
-        .catch(error => {
-          console.log(error)
-          alert('글쓰기 실패!')
-          this.resetPost()
-        })
+          .catch(error => {
+            console.log(error)
+            alert('글쓰기 실패!')
+            this.resetPost()
+          })
+      }
     },
     onCancelClicked () {
 

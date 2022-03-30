@@ -67,6 +67,7 @@ export default {
     }
   },
   created () {
+    this.posts = {}
     console.log(this.categoryProps)
     this.category = this.categoryProps
     console.log(this.category)
@@ -81,6 +82,7 @@ export default {
         console.log(this.posts)
       }).catch((error) => {
         console.log(error)
+        this.posts = {}
       })
   }
 }
