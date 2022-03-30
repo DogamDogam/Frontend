@@ -63,7 +63,8 @@ export default {
   .postbox_head {
     background: rgb(247, 203, 138);
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
+    margin-left: 10px;
     margin-top: 20px;
   }
 

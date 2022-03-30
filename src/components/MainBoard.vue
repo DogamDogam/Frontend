@@ -105,30 +105,32 @@ export default {
     max-width: 100%;
 }
 .main {
-    margin-left: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .footer {
   margin-top: 100px;
   margin-bottom:30px;
 }
 #header-page {
-    /* background: aquamarine; */
     margin: 15px;
     margin-bottom: 20px;
 }
 #main-page {
-    border-radius: 10px;
     margin: 10px;
 
 }
 
 #main-page-color {
       background: rgb(250, 244, 212);
+      border-radius: 10px;
+
 }
 #writepost {
   margin-top: 20px;
   background-color: rgb(247, 203, 138);
   border-radius: 10px;
+  margin-right: 10px;
 }
 #Logo {
   text-align: center;

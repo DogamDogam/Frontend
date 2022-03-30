@@ -190,6 +190,7 @@ export default {
     width: 450px;
     max-width: 100%;
     padding: 25px;
+    margin-bottom: 20px;
     border: 1px dashed rgba(255, 255, 255, 0.4);
     border-radius: 3px;
     transition: 0.2s;
