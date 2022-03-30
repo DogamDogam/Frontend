@@ -1,10 +1,8 @@
 <template>
     <div id="Mainboard" class="main">
-        <b-container class="body" fluid="md">
+        <b-container id="main-page" class="body" fluid="md">
             <b-row align-v="start" id="header-page">
-                <b-col cols="20" md="auto">
-                    <p id="Logo">DogamDogam</p>
-                </b-col>
+                <b-row><b-col cols="20" md="center"><p id="Logo">DogamDogam</p></b-col></b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
                       <b-dropdown-item @click="sort_text='정렬'">정렬</b-dropdown-item>
@@ -17,13 +15,13 @@
                     </b-dropdown>
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
-                    <b-button variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
-                    <b-button variant="outline-warning" v-if="!isLogined" @click="loginOnClick()">로그인</b-button>
-                    <b-button variant="outline-warning" v-if="isLogined" @click="logoutOnClick()">로그아웃</b-button>
+                    <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
+                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
+                    <b-button id= "button" variant="outline-warning" v-if="!isLogined" @click="loginOnClick()">로그인</b-button>
+                    <b-button id= "button" variant="outline-warning" v-if="isLogined" @click="logoutOnClick()">로그아웃</b-button>
                 </b-col>
             </b-row>
-            <b-row id="main-page" cols="2">
+            <b-row id="main-page-color" cols="2">
                 <b-col v-if="sort_text == '정렬'">
                   <div @click="onViewModeChanged('viewpost')">
                     <post-list></post-list>
@@ -36,6 +34,13 @@
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
                     <view-post v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
+            </b-row>
+            <b-row id="main-page-color">
+                  <div class="jumbotron text-center footer">
+                    <p>🤩 Created by Team 다감다감</p>
+                    <p>📞 010-0000-000</p>
+                    <p>🎈 강남대학교 소프트웨어응용학부</p>
+                  </div>
             </b-row>
         </b-container>
     </div>
@@ -102,27 +107,38 @@ export default {
 .main {
     margin-left: 10px;
 }
+.footer {
+  margin-top: 100px;
+  margin-bottom:30px;
+}
 #header-page {
     /* background: aquamarine; */
     margin: 15px;
     margin-bottom: 20px;
 }
 #main-page {
-    background: rgb(250, 244, 212);
     border-radius: 10px;
     margin: 10px;
 
 }
+
+#main-page-color {
+      background: rgb(250, 244, 212);
+}
 #writepost {
-  margin-top: 50px;
+  margin-top: 20px;
   background-color: rgb(247, 203, 138);
   border-radius: 10px;
 }
 #Logo {
   text-align: center;
-  font-size: 20px;
+  font-size: 50px;
   font-family: yg-jalnan;
   color: #2F4F4F;
-  margin-top: 5px;
+  margin-top: 20px;
+}
+
+#button {
+  font-size: 20px;
 }
 </style>

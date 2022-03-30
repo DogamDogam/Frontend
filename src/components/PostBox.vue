@@ -1,6 +1,6 @@
 <template>
     <div v-if = "posts != null" class="postbox_head">
-        <b-container class="body" v-for="(post, index) in posts" :key="index">
+        <b-container v-for="(post, index) in posts" :key="index">
             <b-row @click="onViewModeChanged(index)">
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
@@ -64,6 +64,7 @@ export default {
     background: rgb(247, 203, 138);
     border-radius: 10px;
     margin: 10px;
+    margin-top: 20px;
   }
 
 #proImg, #proTex, #Peo {
