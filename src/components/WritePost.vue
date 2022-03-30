@@ -134,6 +134,7 @@ export default {
     postNullCheck () {
       if ((this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
         alert('내용을 채워주세요!')
+        this.resetPost()
         return false
       }
       return true
@@ -173,7 +174,7 @@ export default {
       }
     },
     onCancelClicked () {
-
+      this.resetPost()
     }
 
   }
