@@ -19,6 +19,7 @@
     </div>
 </template>
 <script>
+//  import axios from 'axios'
 import {EventBus} from '../main'
 import PostService from '../services/PostService'
 export default {
@@ -39,7 +40,17 @@ export default {
   methods: {
     onViewModeChanged: function (mode) {
       console.log('보냈다: ', mode)
-      EventBus.$emit('eventGive', mode)
+      EventBus.$emit('eventGive', mode) // 배열 값 viewPost.vue로 보냄
+      //    axios
+      //      .get(
+      //        'http://localhost:9090/api/posts/'
+      //      ).then((response) => {
+      //        this.postsGive = response.date[mode].id
+      //        console.log('보냈다: ', this.postsGive)   // id 값을 보냄
+      //        EventBus.$emit('eventGive', this.postsGive)
+      //      }).catch((error) => {
+      //        console.log(error)
+      //      })
     },
     getPosts () {
       PostService.getPosts().then((response) => {
