@@ -12,20 +12,20 @@
         </b-row>
 
         <b-row class="text">
-          <b-col id="title">{{this.posts.title}}</b-col>
+          <b-col id="title">{{posts.title}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="category">{{this.posts.category}}</b-col>
-          <b-col id="people">{{this.posts.numOfpeople}}</b-col>
+          <b-col id="category">{{posts.category}}</b-col>
+          <b-col id="people">{{posts.numOfpeople}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="price">{{this.posts.price}}</b-col>
+          <b-col id="price">{{posts.price}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="description">{{this.posts.description}}</b-col>
+          <b-col id="description">{{posts.description}}</b-col>
         </b-row>
 
         <b-row>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+//  import axios from 'axios'
 import {EventBus} from '../main'
 import PostService from '../services/PostService'
 export default {
@@ -53,6 +54,7 @@ export default {
   data () {
     return {
       posts: {
+        id: '',
         image: '',
         title: '',
         price: '',
@@ -68,8 +70,17 @@ export default {
       PostService.getPosts().then((response) => {
         console.log(response.data)
         EventBus.$on('eventGive', mode => {
-          console.log('받았다: ', mode)
-          this.posts = response.data[mode]
+          console.log('받았다: ', mode) // postBox.vue에서 보내온 배열의 값 받음
+          this.posts = response.data[mode] // 받은 배열값을 바탕으로 Viewpost를 출력함
+        //  axios
+        //    .get(
+        //      'http://localhost:9090/api/posts/' + this.id
+        //     ).then((response) => {
+        //       this.posts = response.data
+        //       console.log(this.posts)
+        //     }).catch((error) => {
+        //        console.log(error)
+        //     })
         })
       })
     }
