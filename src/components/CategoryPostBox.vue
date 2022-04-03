@@ -45,12 +45,12 @@ export default {
   },
   watch: {
     categoryProps: function () {
-      console.log('a: ', this.categoryProps)
+      console.log(this.categoryProps)
       this.category = this.categoryProps
       if (this.category === '식재료') this.categoryNum = 1
       else if (this.category === '배달비') this.categoryNum = 2
       else if (this.category === '물품') this.categoryNum = 3
-      console.log('b: ', this.categoryNum)
+      console.log(this.categoryNum)
       axios
         .get(
           'http://localhost:9090/api/posts/category/' + this.categoryNum
