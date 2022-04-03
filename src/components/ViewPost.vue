@@ -46,15 +46,19 @@
 </template>
 
 <script>
-//  import axios from 'axios'
+import axios from 'axios'
 import {EventBus} from '../main'
 import PostService from '../services/PostService'
 export default {
   name: 'Posts',
+  props: {
+    idProps: this.category
+  },
   data () {
     return {
+      category: '',
+      id: '',
       posts: {
-        id: '',
         image: '',
         title: '',
         price: '',
@@ -69,24 +73,40 @@ export default {
     getPosts () {
       PostService.getPosts().then((response) => {
         console.log(response.data)
-        EventBus.$on('eventGive', mode => {
-          console.log('받았다: ', mode) // postBox.vue에서 보내온 배열의 값 받음
-          this.posts = response.data[mode] // 받은 배열값을 바탕으로 Viewpost를 출력함
-        //  axios
-        //    .get(
-        //      'http://localhost:9090/api/posts/' + this.id
-        //     ).then((response) => {
-        //       this.posts = response.data
-        //       console.log(this.posts)
-        //     }).catch((error) => {
-        //        console.log(error)
-        //     })
+        EventBus.$on('eventGivePost', mode => {
+          console.log('Post 받았다: ', mode)
+          this.id = response.data[mode].id
+          console.log('id: ', this.id)
         })
       })
     }
   },
+  watch: {
+    id (newVal) {
+      axios
+        .get(
+          'http://localhost:9090/api/post/' + newVal
+        ).then((response) => {
+          console.log(response.data)
+          this.posts = response.data
+          console.log(this.posts)
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+  },
   created () {
     this.getPosts()
+    axios
+      .get(
+        'http://localhost:9090/api/post/' + this.idProps
+      ).then((response) => {
+        console.log('bbb: ', response.data)
+        this.posts = response.data
+        console.log(this.posts)
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 }
 </script>

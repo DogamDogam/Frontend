@@ -34,7 +34,7 @@
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
-                    <view-post v-if="viewMode =='viewpost'"></view-post>
+                    <view-post v-bind:idProps="sort_id" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>
         </b-container>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import {EventBus} from '../main'
 import CategoryPostBox from './CategoryPostBox.vue'
 export default {
   components: { CategoryPostBox },
@@ -84,6 +85,12 @@ export default {
       this.sort_text = '물품'
     }
 
+  },
+  created () {
+    EventBus.$on('eventGiveMain', mode => {
+      console.log('Main 받았다: ', mode)
+      this.sort_id = mode
+    })
   }
 }
 </script>
