@@ -39,8 +39,10 @@ export default {
   },
   methods: {
     onViewModeChanged: function (mode) {
-      console.log('보냈다: ', mode)
-      EventBus.$emit('eventGive', mode) // 배열 값 viewPost.vue로 보냄
+      console.log('Main 보냈다: ', this.posts[mode].id)
+      EventBus.$emit('eventGiveMain', this.posts[mode].id) // 배열 값 viewPost.vue로 보냄
+      console.log('Post 보냈다: ', mode)
+      EventBus.$emit('eventGivePost', mode)
       //    axios
       //      .get(
       //        'http://localhost:9090/api/posts/'
