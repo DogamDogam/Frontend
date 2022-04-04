@@ -3,9 +3,9 @@
         <b-container class="body">
             <b-row class="head">
                 <b-col style="text-align: left">
-                    <a href="/MainBoard" style="text-decoration: none;">
+                    <router-link to="/" style="text-decoration: none;">
                         <p>DogamDogam</p>
-                    </a>
+                    </router-link>
                 </b-col>
             </b-row>
             <b-row class="body_button" align-v="center">

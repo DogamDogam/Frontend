@@ -18,6 +18,7 @@ import SaleList from './components/SaleList'
 import PurchaseList from './components/PurchaseList'
 import LikeList from './components/LikeList'
 import CategoryPostBox from './components/CategoryPostBox'
+import LoginBoard from './components/LoginBoard'
 
 export const EventBus = new Vue()
 
@@ -33,6 +34,7 @@ Vue.component('comment-board', CommentBoard)
 Vue.component('sale-list', SaleList)
 Vue.component('purchase-list', PurchaseList)
 Vue.component('like-list', LikeList)
+Vue.component('login-board', LoginBoard)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
