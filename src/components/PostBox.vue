@@ -58,7 +58,6 @@ export default {
       PostService.getPosts().then((response) => {
         console.log(response.data)
         this.posts = response.data
-        console.log(this.posts)
       }).catch((error) => {
         console.log(error)
         this.posts = {}

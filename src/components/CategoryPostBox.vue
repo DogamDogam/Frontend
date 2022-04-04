@@ -1,7 +1,7 @@
 <template>
     <div v-if = "categoryProps" class="postbox_head">
         <b-container class="body" v-for="(post, index) in posts"  :key="index">
-            <b-row>
+            <b-row @click="onViewModeChanged(post,index)">
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
               </b-col>
@@ -20,6 +20,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {EventBus} from '../main'
 export default {
   name: 'CategoryPosts',
   props: {
@@ -41,23 +42,22 @@ export default {
     }
   },
   methods: {
-
+    onViewModeChanged: function (post, index) {
+      EventBus.$emit('eventGiveMain', this.posts[index].id)
+      EventBus.$emit('emitPost', post)
+    }
   },
   watch: {
     categoryProps: function () {
-      console.log(this.categoryProps)
       this.category = this.categoryProps
       if (this.category === '식재료') this.categoryNum = 1
       else if (this.category === '배달비') this.categoryNum = 2
       else if (this.category === '물품') this.categoryNum = 3
-      console.log(this.categoryNum)
       axios
         .get(
           'http://localhost:9090/api/posts/category/' + this.categoryNum
         ).then((response) => {
-          console.log(response.data)
           this.posts = response.data
-          console.log(this.posts)
         }).catch((error) => {
           console.log(error)
         })
@@ -68,18 +68,14 @@ export default {
   },
   created () {
     this.posts = {}
-    console.log(this.categoryProps)
     this.category = this.categoryProps
-    console.log(this.category)
     axios
       .get(
         'http://localhost:9090/api/posts/category/' + this.categoryNum,
         {
         }
       ).then((response) => {
-        console.log(response.data)
         this.posts = response.data
-        console.log(this.posts)
       }).catch((error) => {
         console.log(error)
         this.posts = {}

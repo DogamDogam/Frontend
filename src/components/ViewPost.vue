@@ -12,20 +12,20 @@
         </b-row>
 
         <b-row class="text">
-          <b-col id="title">{{posts.title}}</b-col>
+          <b-col id="title">{{post.title}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="category">{{posts.category}}</b-col>
-          <b-col id="people">{{posts.numOfpeople}}</b-col>
+          <b-col id="category">{{post.category}}</b-col>
+          <b-col id="people">{{post.numOfpeople}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="price">{{posts.price}}</b-col>
+          <b-col id="price">{{post.price}}</b-col>
         </b-row>
 
         <b-row class="text">
-          <b-col id="description">{{posts.description}}</b-col>
+          <b-col id="description">{{post.description}}</b-col>
         </b-row>
 
         <b-row>
@@ -50,7 +50,7 @@ import axios from 'axios'
 import {EventBus} from '../main'
 import PostService from '../services/PostService'
 export default {
-  name: 'Posts',
+  name: 'ViewPost',
   props: {
     idProps: this.category
   },
@@ -58,19 +58,18 @@ export default {
     return {
       category: '',
       id: '',
-      posts: {
+      post: {
         image: '',
         title: '',
         price: '',
         place: '',
         description: '',
         numOfpeople: ''
-      },
-      post: []
+      }
     }
   },
   methods: {
-    getPosts () {
+    getPost () {
       PostService.getPosts().then((response) => {
         console.log(response.data)
         EventBus.$on('eventGivePost', mode => {
@@ -78,6 +77,12 @@ export default {
           this.id = response.data[mode].id
           console.log('id: ', this.id)
         })
+      })
+    },
+    getCategoryPost () {
+      EventBus.$on('emitPost', post => {
+        console.log('Post 받았다: ', post)
+        this.post = post
       })
     }
   },
@@ -88,25 +93,28 @@ export default {
           'http://localhost:9090/api/post/' + newVal
         ).then((response) => {
           console.log(response.data)
-          this.posts = response.data
-          console.log(this.posts)
+          this.post = response.data
+          console.log(this.post)
         }).catch((error) => {
           console.log(error)
         })
+    },
+    post: function () {
+      this.post = this.post
     }
   },
   created () {
-    this.getPosts()
+    this.getPost()
     axios
       .get(
         'http://localhost:9090/api/post/' + this.idProps
       ).then((response) => {
         console.log('bbb: ', response.data)
-        this.posts = response.data
-        console.log(this.posts)
+        this.post = response.data
       }).catch((error) => {
         console.log(error)
       })
+    this.getCategoryPost()
   }
 }
 </script>

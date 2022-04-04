@@ -24,7 +24,7 @@
             </b-row>
             <b-row id="main-page-color" cols="2">
                 <b-col v-if="sort_text == '정렬'">
-                  <div @click="onViewModeChanged('viewpost')">
+                  <div>
                     <post-list></post-list>
                   </div>
                 </b-col>
@@ -96,6 +96,7 @@ export default {
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.sort_id = mode
+      this.onViewModeChanged('viewpost')
     })
   }
 }
