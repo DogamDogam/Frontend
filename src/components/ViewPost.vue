@@ -37,7 +37,8 @@
         </div>
 
         <b-collapse id="my-collapse">
-          <comment-board class="comment_board"></comment-board>
+          <comment-input class="comment_input"></comment-input>
+          <comment-board class="comment_input"></comment-board>
         </b-collapse>
           </b-col>
         </b-row>
@@ -49,7 +50,9 @@
 import axios from 'axios'
 import {EventBus} from '../main'
 import PostService from '../services/PostService'
+import CommentBoard from './CommentBoard.vue'
 export default {
+  components: { CommentBoard },
   name: 'ViewPost',
   props: {
     idProps: this.category
@@ -141,7 +144,7 @@ export default {
     border-radius: 10px;
     margin: 10px;
   }
-  .comment_board {
+  .comment_input {
     margin: 10px;
     position: relative;
   }

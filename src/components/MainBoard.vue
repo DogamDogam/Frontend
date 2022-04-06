@@ -29,7 +29,7 @@
                   </div>
                 </b-col>
                 <b-col v-else>
-                  <category-post-box v-bind:categoryProps="sort_text"></category-post-box>
+                  <category-postbox v-bind:categoryProps="sort_text"></category-postbox>
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
@@ -49,9 +49,7 @@
 
 <script>
 import {EventBus} from '../main'
-import CategoryPostBox from './CategoryPostBox.vue'
 export default {
-  components: { CategoryPostBox },
   name: 'MainBoard',
   data () {
     return {

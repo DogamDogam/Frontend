@@ -14,6 +14,7 @@ import WritePost from './components/WritePost'
 import PostList from './components/PostList'
 import PostBox from './components/PostBox'
 import CommentBoard from './components/CommentBoard'
+import CommentInput from './components/CommentInput'
 import SaleList from './components/SaleList'
 import PurchaseList from './components/PurchaseList'
 import LikeList from './components/LikeList'
@@ -31,6 +32,7 @@ Vue.component('post-list', PostList)
 Vue.component('post-box', PostBox)
 Vue.component('category-postbox', CategoryPostBox)
 Vue.component('comment-board', CommentBoard)
+Vue.component('comment-input', CommentInput)
 Vue.component('sale-list', SaleList)
 Vue.component('purchase-list', PurchaseList)
 Vue.component('like-list', LikeList)

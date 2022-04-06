@@ -163,7 +163,7 @@ export default {
           .then(response => {
             console.log(response)
             alert('글쓰기 성공!')
-            this.resetPost()
+            // this.resetPost()
             this.$router.go()
           })
           .catch(error => {
