@@ -41,6 +41,8 @@ Vue.component('login-board', LoginBoard)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+window.Kakao.init('e9484684351888ffbd624d69698e5c5b')
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

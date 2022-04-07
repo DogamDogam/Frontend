@@ -7,8 +7,8 @@
                         <b-card-text>
                             카카오톡과 연동되어 계정 로그인 / 생성을 진행합니다.
                         </b-card-text>
-                        <b-button variant="outline-warning" @click="LoginbuttonClicked()">
-                            Login/Register
+                        <b-button variant="outline-warning" @click="LoginonClicked()">
+                        로그인/회원가입
                         </b-button>
                         <b-button variant="outline-warning">
                             <router-link to="/">뒤로가기</router-link>
@@ -20,16 +20,15 @@
     </div>
 </template>
 
-<script src="//developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 export default {
   name: 'LoginBoard',
   methods: {
-    LoginbuttonClicked () {
-      const param = {
-        redirectUri: 'localhost:8080/#/'
+    LoginonClicked () {
+      const params = {
+        redirectUri: 'http://localhost:9090/LoginBoard/KaKaoLogin/callback'
       }
-      window.Kakao.Auth.authorize(param)
+      window.Kakao.Auth.authorize(params)
     }
   }
 }
