@@ -19,9 +19,16 @@
                   :id="title"
                   placeholder="제목"
                   v-model="title"
+                  :state="validateTitle"
+                  @focus="focusOnTitle=true"
                   >
                   </b-form-input>
                 </b-col>
+            </b-row>
+            <b-row>
+              <b-form-invalid-feedback v-if="focusOnTitle" :state="validateTitle" style="padding-left: 20px">
+                제목의 글자수는 20자 이하로 작성해주세요.
+              </b-form-invalid-feedback>
             </b-row>
             <b-row>
                 <b-col id="price_area">
@@ -29,6 +36,8 @@
                     :id="price"
                     placeholder="가격"
                     v-model="price"
+                    :state="validatePrice"
+                    @focus="focusOnPrice=true"
                     >
                     </b-form-input>
                 </b-col>
@@ -37,8 +46,18 @@
                     :id="place"
                     placeholder="장소"
                     v-model="place"
+                    :state="validatePlace"
+                    @focus="focusOnPlace=true"
                     ></b-form-input>
                 </b-col>
+            </b-row>
+            <b-row>
+              <b-form-invalid-feedback v-if="focusOnPrice" :state="validatePrice" style="padding-left: 20px">
+                올바른 가격을 입력해주세요 (숫자, 7자이내).
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback v-if="focusOnPlace" :state="validatePlace" style="padding-left: 20px">
+                장소의 글자수는 20자 이하로 작성해주세요.
+              </b-form-invalid-feedback>
             </b-row>
             <b-row>
               <b-col>
@@ -63,9 +82,16 @@
                       rows="3"
                       max-rows="6"
                       no-resize
+                      :state="validateDescription"
+                      @focus="focusOnDescription=true"
                       >
                     </b-form-textarea>
                 </b-col>
+            </b-row>
+            <b-row>
+              <b-form-invalid-feedback v-if="focusOnDescription" :state="validateDescription" style="padding-left: 20px">
+                내용의 글자수는 300자 이하로 작성해주세요.
+              </b-form-invalid-feedback>
             </b-row>
             <b-row>
               <b-col id="button_area" style="text-align: right">
@@ -100,7 +126,12 @@ export default {
       price: '',
       category: '',
       numOfpeople: '1',
-      description: ''
+      description: '',
+      focusOnTitle: false,
+      focusOnPrice: false,
+      focusOnPlace: false,
+      focusOnDescription: false,
+      numberCheck: false
     }
   },
   methods: {
@@ -177,6 +208,24 @@ export default {
       this.resetPost()
     }
 
+  },
+  computed: {
+    validateTitle: function () {
+      return this.title != null && this.title !== '' && this.title.length <= 20
+    },
+    validatePrice: function () {
+      const reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z]/
+      if (reg.exec(this.price) == null) { // 숫자면 null
+        return this.price != null && this.price !== '' && this.price.length <= 7
+      }
+      return false
+    },
+    validatePlace: function () {
+      return this.place != null && this.place !== '' && this.place.length <= 20
+    },
+    validateDescription: function () {
+      return this.description != null && this.description !== '' && this.description.length <= 300
+    }
   }
 }
 </script>
