@@ -20,15 +20,13 @@
     </div>
 </template>
 
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 export default {
   name: 'LoginBoard',
   methods: {
     LoginonClicked () {
-      const params = {
-        redirectUri: 'http://localhost:9090/LoginBoard/KaKaoLogin/callback'
-      }
-      window.Kakao.Auth.authorize(params)
+      window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
     }
   }
 }

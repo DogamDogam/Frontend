@@ -18,7 +18,7 @@
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning">로그인</b-button>
+                      <b-button id= "button" variant="outline-warning" >로그인</b-button>
                     </router-link>
                 </b-col>
             </b-row>
@@ -65,9 +65,6 @@ export default {
     },
     dealingOnClick: function () {
       this.$router.push('DealingList')
-    },
-    kakaoLogin: function () {
-      window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/kakao/callback&response_type=code', 'target')
     },
     loginOnClick: function () {
       this.kakaoLogin()
