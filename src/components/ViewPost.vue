@@ -48,8 +48,8 @@
         </div>
 
         <b-collapse id="my-collapse">
-          <comment-input class="comment_input"></comment-input>
-          <comment-board class="comment_input"></comment-board>
+          <comment-input class="comment_input" v-bind:postIdProps="postId"></comment-input>
+          <comment-board class="comment_input" v-bind:postIdProps="postId"></comment-board>
         </b-collapse>
           </b-col>
         </b-row>
@@ -86,7 +86,8 @@ export default {
         title: '',
         description: ''
       },
-      Mode: 'viewMode'
+      Mode: 'viewMode',
+      postId: ''
     }
   },
   methods: {
@@ -97,7 +98,10 @@ export default {
           console.log('Post 받았다: ', mode)
           this.id = response.data[mode].id
           console.log('id: ', this.id)
+          this.postId = this.id
         })
+      }).catch(error => {
+        console.log(error)
       })
     },
     getCategoryPost () {
@@ -186,6 +190,10 @@ export default {
     },
     Mode: function () {
       this.mode = this.mode
+    },
+    postId: function () {
+      this.postId = this.postId
+      console.log(this.postId)
     }
   },
   created () {
@@ -200,6 +208,9 @@ export default {
         console.log(error)
       })
     this.getCategoryPost()
+    EventBus.$on('eventGivePost', mode => {
+      console.log(mode)
+    })
   }
 }
 </script>

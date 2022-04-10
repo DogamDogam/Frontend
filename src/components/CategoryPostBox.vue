@@ -56,6 +56,7 @@ export default {
         .get(
           'http://localhost:9090/api/posts/category/' + this.categoryNum
         ).then((response) => {
+          console.log(response)
           this.posts = response.data
         }).catch((error) => {
           console.log(error)

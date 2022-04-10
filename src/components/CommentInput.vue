@@ -25,19 +25,54 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  props: {
+    postIdProps: this.postId
+  },
   data () {
     return {
+      postId: '',
       comment: '',
-      user_icon: 'https://placekitten.com/300/300'
+      user_icon: 'https://placekitten.com/300/300',
+      body: {
+        image: '',
+        content: ''
+      }
     }
   },
   methods: {
     commentOnClick: function () {
-      alert(this.comment)
+      this.body = {
+        image: '임시image',
+        content: this.comment
+      }
+      console.log(this.postId)
+      axios.post(
+        'http://localhost:9090/api/reply/' + this.postId,
+        JSON.stringify(this.body),
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      ).then((response) => {
+        console.log(response)
+        alert('댓글 작성 완료')
+      }).catch((error) => {
+        console.log(error)
+      })
       this.comment = ''
       this.$router.go()
     }
+  },
+  watch: {
+    postIdProps: function () {
+      this.postId = this.postIdProps
+    }
+  },
+  created () {
+    this.postId = this.postIdProps
   }
 }
 </script>

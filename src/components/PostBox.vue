@@ -37,21 +37,11 @@ export default {
     }
   },
   methods: {
-    onViewModeChanged: function (mode) {
-      console.log('Main 보냈다: ', this.posts[mode].id)
-      EventBus.$emit('eventGiveMain', this.posts[mode].id) // 배열 값 viewPost.vue로 보냄
-      console.log('Post 보냈다: ', mode)
-      EventBus.$emit('eventGivePost', mode)
-      //    axios
-      //      .get(
-      //        'http://localhost:9090/api/posts/'
-      //      ).then((response) => {
-      //        this.postsGive = response.date[mode].id
-      //        console.log('보냈다: ', this.postsGive)   // id 값을 보냄
-      //        EventBus.$emit('eventGive', this.postsGive)
-      //      }).catch((error) => {
-      //        console.log(error)
-      //      })
+    onViewModeChanged: function (index) {
+      console.log('Main 보냈다: ', this.posts[index].id)
+      EventBus.$emit('eventGiveMain', this.posts[index].id) // 배열 값 viewPost.vue로 보냄
+      console.log('Post 보냈다: ', index)
+      EventBus.$emit('eventGivePost', index)
     },
     getPosts () {
       PostService.getPosts().then((response) => {
