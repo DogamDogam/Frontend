@@ -1,7 +1,7 @@
 <template>
     <div v-if = "posts != null" class="postbox_head">
         <b-container v-for="(post, index) in posts" :key="index">
-            <b-row @click="onViewModeChanged(index)">
+            <b-row>
               <b-col sm="auto" id="proImg">
                 <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
               </b-col>
@@ -10,9 +10,8 @@
                 <div id="price">{{post.price}}</div>
               </b-col>
               <b-col id="Peo">
-                <div>
-                  {{post.numOfpeople}}명
-                </div>
+                <div>{{post.numOfpeople}}명</div>
+                <div><b-button @click="onViewModeChanged(index)">상세보기</b-button></div>
               </b-col>
             </b-row>
         </b-container>
@@ -84,7 +83,7 @@ export default {
     margin-top : 5%;
     margin-bottom: 5%;
 }
-#proTex div, #Peo {
+#proTex div{
     border: 2px dotted black;
 }
 

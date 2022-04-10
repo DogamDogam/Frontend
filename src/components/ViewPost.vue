@@ -2,6 +2,15 @@
   <div id="body" class="d-grid gap-2">
     <br>
       <b-container fluid class="d-grid gap-3">
+        <b-row>
+          <b-col v-if="Mode=='viewMode'" style="text-align: right">
+            <b-button @click="updatePostform()">수정</b-button>
+            <b-button @click="deletePost()">삭제</b-button>
+          </b-col>
+          <b-col v-if="Mode=='updateMode'" style="text-align: right">
+            <b-button @click="updatePost()">수정완료</b-button>
+          </b-col>
+        </b-row>
         <b-row class="Image_area">
           <b-col>
             <div class="Image_state">
@@ -12,7 +21,8 @@
         </b-row>
 
         <b-row class="text">
-          <b-col id="title">{{post.title}}</b-col>
+          <b-col v-if="Mode=='viewMode'" id="title">{{post.title}}</b-col>
+          <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
         </b-row>
 
         <b-row class="text">
@@ -25,7 +35,8 @@
         </b-row>
 
         <b-row class="text">
-          <b-col id="description">{{post.description}}</b-col>
+          <b-col v-if="Mode=='viewMode'" id="description">{{post.description}}</b-col>
+          <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="description" v-model="description" placeholder="내용"></b-form-input></b-col>
         </b-row>
 
         <b-row>
@@ -61,6 +72,8 @@ export default {
     return {
       category: '',
       id: '',
+      title: '',
+      description: '',
       post: {
         image: '',
         title: '',
@@ -68,7 +81,12 @@ export default {
         place: '',
         description: '',
         numOfpeople: ''
-      }
+      },
+      body: {
+        title: '',
+        description: ''
+      },
+      Mode: 'viewMode'
     }
   },
   methods: {
@@ -87,6 +105,67 @@ export default {
         console.log('Post 받았다: ', post)
         this.post = post
       })
+    },
+    deletePost () {
+      this.$bvModal.msgBoxConfirm('게시물을 삭제하시겠습니까?', {
+        title: ' ',
+        okTitle: '확인',
+        cancelTitle: '취소',
+        headerClass: 'p-2 border-bottom-0',
+        footerClass: 'p-2 border-top-0',
+        hideHeaderClose: false
+      }).then(value => {
+        if (value === true) {
+          axios
+            .delete(
+              'http://localhost:9090/api/post/' + this.post.id)
+            .then((response) => {
+              alert('삭제 완료되었습니다.')
+              this.$router.go()
+            }).catch((error) => {
+              console.log(error)
+            })
+        } else {
+          this.$bvModal.hide()
+        }
+      })
+    },
+    updatePostform () {
+      this.Mode = 'updateMode'
+    },
+    postNullCheck () {
+      if ((this.title === '') || (this.description === '')) {
+        alert('내용을 채워주세요!')
+        return false
+      }
+      return true
+    },
+    updatePost () {
+      if (this.postNullCheck()) {
+        this.post.title = this.title
+        this.post.description = this.description
+        this.body = {
+          title: this.title,
+          description: this.description
+        }
+      }
+      axios
+        .put(
+          'http://localhost:9090/api/post/' + this.post.id,
+          JSON.stringify(this.body),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then((response) => {
+          console.log(response)
+          alert('수정 완료되었습니다.')
+          this.$router.go()
+        }).catch((error) => {
+          console.log(error)
+        })
+      this.Mode = 'viewMode'
     }
   },
   watch: {
@@ -104,6 +183,9 @@ export default {
     },
     post: function () {
       this.post = this.post
+    },
+    Mode: function () {
+      this.mode = this.mode
     }
   },
   created () {
