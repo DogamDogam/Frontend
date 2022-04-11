@@ -119,7 +119,7 @@ export default {
         if (value === true) {
           axios
             .delete(
-              'http://localhost:9090/api/post/' + this.post.id)
+              'http://localhost:9090/api/post/' + this.postId)
             .then((response) => {
               alert('삭제 완료되었습니다.')
               this.$router.go()
@@ -150,7 +150,7 @@ export default {
         }
         axios
           .put(
-            'http://localhost:9090/api/post/' + this.post.id,
+            'http://localhost:9090/api/post/' + this.postId,
             JSON.stringify(this.body),
             {
               headers: {
