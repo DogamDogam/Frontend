@@ -43,12 +43,15 @@
         <b-row>
           <b-col>
             <div class="mb-3" id="button">
-              <b-button v-b-toggle.my-collapse class="toggle_button">
+              <b-button :class="visible ? null : 'collapsed'"
+                :aria-expanded="visible ? 'true' : 'false'"
+                aria-controls="my-collapse"
+                @click="visible = !visible">
             <b-icon icon="caret-down"></b-icon>
           </b-button>
         </div>
 
-        <b-collapse id="my-collapse">
+        <b-collapse id="my-collapse" v-model="visible">
           <comment-input class="comment_input" v-bind:postIdProps="postId"></comment-input>
           <comment-board class="comment_input" v-bind:postIdProps="postId"></comment-board>
         </b-collapse>
@@ -86,7 +89,8 @@ export default {
         title: '',
         description: ''
       },
-      Mode: 'viewMode'
+      Mode: 'viewMode',
+      visible: false
     }
   },
   methods: {
@@ -181,6 +185,7 @@ export default {
     idProps: function () {
       this.postId = this.idProps
       this.getPost(this.postId)
+      this.visible = false
     }
   },
   created () {

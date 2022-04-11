@@ -34,6 +34,17 @@ export default {
     }
   },
   methods: {
+    getComment () {
+      axios
+        .get(
+          'http://localhost:9090/api/reply/' + this.postId
+        ).then((response) => {
+          this.replys = response.data
+          console.log(this.replys)
+        }).catch((error) => {
+          console.log(error)
+        })
+    },
     deleteComment (reply) {
       console.log(reply)
       this.$bvModal.msgBoxConfirm('댓글을 삭제하시겠습니까?', {
@@ -63,19 +74,12 @@ export default {
   watch: {
     postIdProps: function () {
       this.postId = this.postIdProps
+      this.getComment()
     }
   },
   created () {
     this.postId = this.postIdProps
-    axios
-      .get(
-        'http://localhost:9090/api/reply/' + this.postId
-      ).then((response) => {
-        this.replys = response.data
-        console.log(this.replys)
-      }).catch((error) => {
-        console.log(error)
-      })
+    this.getComment()
   }
 }
 </script>
