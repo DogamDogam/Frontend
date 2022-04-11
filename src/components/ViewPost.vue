@@ -8,6 +8,7 @@
             <b-button @click="deletePost()">삭제</b-button>
           </b-col>
           <b-col v-if="Mode=='updateMode'" style="text-align: right">
+            <b-button @click="updatePostCancle()">수정취소</b-button>
             <b-button @click="updatePost()">수정완료</b-button>
           </b-col>
         </b-row>
@@ -60,18 +61,17 @@
 <script>
 import axios from 'axios'
 import {EventBus} from '../main'
-import PostService from '../services/PostService'
 import CommentBoard from './CommentBoard.vue'
 export default {
   components: { CommentBoard },
   name: 'ViewPost',
   props: {
-    idProps: this.category
+    idProps: this.postId
   },
   data () {
     return {
       category: '',
-      id: '',
+      postId: '',
       title: '',
       description: '',
       post: {
@@ -86,23 +86,20 @@ export default {
         title: '',
         description: ''
       },
-      Mode: 'viewMode',
-      postId: ''
+      Mode: 'viewMode'
     }
   },
   methods: {
-    getPost () {
-      PostService.getPosts().then((response) => {
-        console.log(response.data)
-        EventBus.$on('eventGivePost', mode => {
-          console.log('Post 받았다: ', mode)
-          this.id = response.data[mode].id
-          console.log('id: ', this.id)
-          this.postId = this.id
+    getPost (postId) {
+      axios
+        .get(
+          'http://localhost:9090/api/post/' + postId
+        ).then((response) => {
+          console.log(response.data)
+          this.post = response.data
+        }).catch((error) => {
+          console.log(error)
         })
-      }).catch(error => {
-        console.log(error)
-      })
     },
     getCategoryPost () {
       EventBus.$on('emitPost', post => {
@@ -141,8 +138,7 @@ export default {
       if ((this.title === '') || (this.description === '')) {
         alert('내용을 채워주세요!')
         return false
-      }
-      return true
+      } else return true
     },
     updatePost () {
       if (this.postNullCheck()) {
@@ -152,65 +148,45 @@ export default {
           title: this.title,
           description: this.description
         }
-      }
-      axios
-        .put(
-          'http://localhost:9090/api/post/' + this.post.id,
-          JSON.stringify(this.body),
-          {
-            headers: {
-              'Content-Type': 'application/json'
+        axios
+          .put(
+            'http://localhost:9090/api/post/' + this.post.id,
+            JSON.stringify(this.body),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
             }
-          }
-        ).then((response) => {
-          console.log(response)
-          alert('수정 완료되었습니다.')
-          this.$router.go()
-        }).catch((error) => {
-          console.log(error)
-        })
+          ).then((response) => {
+            console.log(response)
+            alert('수정 완료되었습니다.')
+            this.$router.go()
+          }).catch((error) => {
+            console.log(error)
+          })
+        this.Mode = 'viewMode'
+      }
+    },
+    updatePostCancle () {
       this.Mode = 'viewMode'
     }
   },
   watch: {
-    id (newVal) {
-      axios
-        .get(
-          'http://localhost:9090/api/post/' + newVal
-        ).then((response) => {
-          console.log(response.data)
-          this.post = response.data
-          console.log(this.post)
-        }).catch((error) => {
-          console.log(error)
-        })
-    },
     post: function () {
       this.post = this.post
     },
     Mode: function () {
       this.mode = this.mode
     },
-    postId: function () {
-      this.postId = this.postId
-      console.log(this.postId)
+    idProps: function () {
+      this.postId = this.idProps
+      this.getPost(this.postId)
     }
   },
   created () {
-    this.getPost()
-    axios
-      .get(
-        'http://localhost:9090/api/post/' + this.idProps
-      ).then((response) => {
-        console.log('bbb: ', response.data)
-        this.post = response.data
-      }).catch((error) => {
-        console.log(error)
-      })
+    this.postId = this.idProps
+    this.getPost(this.postId)
     this.getCategoryPost()
-    EventBus.$on('eventGivePost', mode => {
-      console.log(mode)
-    })
   }
 }
 </script>
