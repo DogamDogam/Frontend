@@ -173,7 +173,7 @@ export default {
     onPostClicked () {
       if (this.postNullCheck()) {
         this.post = {
-          image: '임시image',
+          image: this.image,
           title: this.title,
           place: this.place,
           price: this.price,
@@ -184,7 +184,7 @@ export default {
 
         axios
           .post(
-            'http://localhost:9090/api/posts',
+            'http://localhost:9090/api/post',
             JSON.stringify(this.post),
             {
               headers: {

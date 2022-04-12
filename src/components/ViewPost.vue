@@ -16,7 +16,7 @@
           <b-col>
             <div class="Image_state">
               <state></state>
-              <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Responsive image"></b-img>
+              <img :src="post.image" thumbnail fluid alt="Image 1" id="image">
             </div>
           </b-col>
         </b-row>
@@ -218,6 +218,11 @@ export default {
     border-radius: 10px;
     margin: 10px;
   }
+  #image {
+    width: 300px;
+    height: 200px;
+  }
+
   .comment_input {
     margin: 10px;
     position: relative;
