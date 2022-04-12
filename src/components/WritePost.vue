@@ -155,6 +155,7 @@ export default {
       console.log(this.selectedItem)
     },
     resetPost () {
+      this.image = ''
       this.title = ''
       this.place = ''
       this.price = ''
@@ -163,9 +164,8 @@ export default {
       this.description = ''
     },
     postNullCheck () {
-      if ((this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
-        alert('내용을 채워주세요!')
-        this.resetPost()
+      if ((this.image === '') || (this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
+        alert('내용을 모두 채워주세요!')
         return false
       }
       return true

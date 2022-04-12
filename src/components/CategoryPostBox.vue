@@ -3,7 +3,7 @@
         <b-container class="body" v-for="(post, index) in posts"  :key="index">
             <b-row>
               <b-col sm="auto" id="proImg">
-                <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" style="width: 100px;"></b-img>
+                <img :src="post.image" thumbnail fluid alt="Image 1" id="image">
               </b-col>
               <b-col class="d-grid gap-2" id="proTex">
                 <div id="title">{{post.title}}</div>
@@ -88,22 +88,36 @@ export default {
   .postbox_head {
     background: rgb(247, 203, 138);
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
+    margin-left: 10px;
+    margin-top: 20px;
   }
 
-#proImg, #proTex, #Peo {
-    margin-top : 5%;
-    margin-bottom: 5%;
-}
-#proTex div{
-    border: 2px dotted black;
-}
+  #image {
+    width: 100px;
+    height: 100px;
+    margin-left: -12px;
+  }
+  #proImg {
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #proTex, #Peo {
+      margin-top : 5%;
+      margin-bottom: 5%;
+  }
+  #proTex div{
+      border: 2px dotted black;
+  }
 
-#Peo {
-  max-width: 20%;
-}
+  #Peo {
+    max-width: 20%;
+  }
 
-#title, #price {
-  width: auto;
-}
+  #title, #price {
+    width: auto;
+  }
 </style>
