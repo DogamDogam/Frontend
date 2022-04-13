@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       category: '',
-      categoryNum: '1',
+      categoryNum: '',
       posts: {
         image: '',
         title: '',
@@ -44,10 +44,8 @@ export default {
     onViewModeChanged: function (post, index) {
       EventBus.$emit('eventGiveMain', this.posts[index].id)
       EventBus.$emit('emitPost', post)
-    }
-  },
-  watch: {
-    categoryProps: function () {
+    },
+    getPost () {
       this.category = this.categoryProps
       if (this.category === '식재료') this.categoryNum = 1
       else if (this.category === '배달비') this.categoryNum = 2
@@ -61,25 +59,16 @@ export default {
         }).catch((error) => {
           console.log(error)
         })
-    },
-    posts: function () {
-      console.log(this.posts)
+    }
+  },
+  watch: {
+    categoryProps: function () {
+      this.getPost()
     }
   },
   created () {
-    this.posts = {}
     this.category = this.categoryProps
-    axios
-      .get(
-        'http://localhost:9090/api/posts/category/' + this.categoryNum,
-        {
-        }
-      ).then((response) => {
-        this.posts = response.data
-      }).catch((error) => {
-        console.log(error)
-        this.posts = {}
-      })
+    this.getPost()
   }
 }
 </script>
