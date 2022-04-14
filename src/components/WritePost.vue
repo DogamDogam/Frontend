@@ -184,7 +184,7 @@ export default {
 
         axios
           .post(
-            'http://localhost:9090/api/post',
+            'http://localhost:9090/api/posts',
             JSON.stringify(this.post),
             {
               headers: {

@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios'
+import {EventBus} from '../main'
 export default {
   props: {
     postIdProps: this.postId
@@ -30,7 +31,8 @@ export default {
         image: '',
         content: ''
       },
-      reply: []
+      reply: [],
+      check: false
     }
   },
   methods: {
@@ -40,7 +42,8 @@ export default {
           'http://localhost:9090/api/reply/' + this.postId
         ).then((response) => {
           this.replys = response.data
-          console.log(this.replys)
+          console.log(this.replys.length)
+          this.checkComment(this.replys.length)
         }).catch((error) => {
           console.log(error)
         })
@@ -69,6 +72,10 @@ export default {
           this.$bvModal.hide()
         }
       })
+    },
+    checkComment (length) {
+      (length > 0) === true ? this.check = true : this.check = false
+      EventBus.$emit('checkComment', this.check)
     }
   },
   watch: {
