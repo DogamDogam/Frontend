@@ -42,6 +42,7 @@ export default {
       EventBus.$emit('eventGiveMain', this.posts[index].id) // 배열 값 viewPost.vue로 보냄
       console.log('Post 보냈다: ', index)
       EventBus.$emit('eventGivePost', index)
+      this.$emit('postOnClicked', this.posts)
     },
     getPosts () {
       PostService.getPosts().then((response) => {

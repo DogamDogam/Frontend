@@ -4,7 +4,7 @@
             <b-row class="head">
                 <b-col style="text-align: left">
                     <router-link to="/" style="text-decoration: none;">
-                        <p>DogamDogam</p>
+                        <p>DagamDagam</p>
                     </router-link>
                 </b-col>
             </b-row>

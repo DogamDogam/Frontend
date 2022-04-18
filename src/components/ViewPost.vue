@@ -69,7 +69,20 @@ export default {
   components: { CommentBoard },
   name: 'ViewPost',
   props: {
-    idProps: this.postId
+    idProps: this.postId,
+    postProps: {
+      type: Object,
+      default: () => {
+        return {
+          image: '',
+          title: '',
+          price: '',
+          place: '',
+          description: '',
+          numOfpeople: ''
+        }
+      }
+    }
   },
   data () {
     return {
@@ -78,12 +91,12 @@ export default {
       title: '',
       description: '',
       post: {
-        image: '',
-        title: '',
-        price: '',
-        place: '',
-        description: '',
-        numOfpeople: ''
+        image: this.postProps.image,
+        title: this.postProps.title,
+        price: this.postProps.price,
+        place: this.postProps.place,
+        description: this.postProps.description,
+        numOfpeople: this.postProps.numOfpeople
       },
       body: {
         title: '',
@@ -243,6 +256,7 @@ export default {
     border: 1px solid #d2d2d2;
   }
   #category, #people {
+    border: 1px solid #d2d2d2;
     background-color: white;
     border-radius: 10px;
   }

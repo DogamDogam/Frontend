@@ -2,7 +2,7 @@
     <div id="Mainboard" class="main">
         <b-container id="main-page" class="body" fluid="md">
             <b-row align-v="start" id="header-page">
-                <b-row><b-col cols="20" md="center"><p id="Logo">DogamDogam</p></b-col></b-row>
+                <b-row><b-col cols="20" md="center"><p id="Logo">DagamDagam</p></b-col></b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
                       <b-dropdown-item @click="sort_text='정렬'">정렬</b-dropdown-item>
@@ -25,7 +25,7 @@
             <b-row id="main-page-color" cols="2">
                 <b-col v-if="sort_text == '정렬'">
                   <div>
-                    <post-list></post-list>
+                    <post-list @postOnclicked="postOnclicked"></post-list>
                   </div>
                 </b-col>
                 <b-col v-else>
@@ -33,7 +33,7 @@
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
-                    <view-post v-bind:idProps="id" v-if="viewMode =='viewpost'"></view-post>
+                    <view-post v-bind:idProps="id" :postProp="postFromPostBox" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
             </b-row>
             <b-row id="main-page-color">
@@ -56,7 +56,15 @@ export default {
       viewMode: 'writepost',
       isLogined: false,
       sort_text: '정렬',
-      id: ''
+      id: '',
+      postFromPostBox: {
+        image: '',
+        title: '',
+        price: '',
+        place: '',
+        description: '',
+        numOfpeople: ''
+      }
     }
   },
   methods: {
@@ -85,6 +93,9 @@ export default {
     },
     goodsOnSelected: function () {
       this.sort_text = '물품'
+    },
+    postOnclicked: function (result) {
+      this.postFromPostBox = result
     }
 
   },

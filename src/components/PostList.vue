@@ -1,5 +1,19 @@
 <template>
     <div>
-        <post-box></post-box>
+        <post-box @postOnClicked="postOnClicked"></post-box>
     </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  },
+  methods: {
+    postOnClicked (result) {
+      this.$emit('postOnclicked', result)
+    }
+  }
+}
+</script>

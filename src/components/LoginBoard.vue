@@ -22,11 +22,32 @@
 
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
+import axios from 'axios'
 export default {
   name: 'LoginBoard',
+  data () {
+      return {
+          userInfo: {
+              nickname: '',
+              profileImage: ''
+          }
+      }
+  },
   methods: {
     LoginonClicked () {
       window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
+
+      axios
+        .post(
+            'http://localhost:9090/oauth/kakao',
+        )
+        .then(function(response) {
+            console.log(response)
+            this.$router.replace('/')
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
   }
 }
