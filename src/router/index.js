@@ -13,7 +13,8 @@ export default new Router({
     {
       path: '/',
       name: 'MainBoard',
-      component: MainBoard
+      component: MainBoard,
+      props: true
     },
     {
       path: '/HelloWorld',

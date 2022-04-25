@@ -23,8 +23,9 @@
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning">로그인</b-button>
+                      <b-button id= "button" variant="outline-warning" v-if="!isLogined" @click="loginonClicked">로그인</b-button>
                     </router-link>
+                    <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page-color" cols="2">
@@ -56,6 +57,11 @@
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
+  props: {
+    userInfo: {
+      type: Object
+    }
+  },
   data () {
     return {
       viewMode: 'writepost',
@@ -70,7 +76,7 @@ export default {
         description: '',
         numOfpeople: ''
       },
-      userInfo: []
+      user: {}
     }
   },
   methods: {
@@ -81,15 +87,10 @@ export default {
     dealingOnClick: function () {
       this.$router.push('DealingList')
     },
-    loginOnClick: function () {
-      this.kakaoLogin()
-      alert('로그인 성공')
-      this.isLogined = true
-    },
-    logoutOnClick: function () {
-      window.open('http://localhost:9090/logout', 'target')
+    logoutonClicked: function () {
       alert('로그아웃 성공')
       this.isLogined = false
+      this.user = null
     },
     deliveryOnSelected: function () {
       this.sort_text = '배달비'
@@ -105,15 +106,14 @@ export default {
     }
   },
   created () {
+    if (this.$route.params.userInfo != null) {
+      this.user = this.$route.params.userInfo
+      this.isLogined = true
+    }
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode
       this.onViewModeChanged('viewpost')
-    })
-    EventBus.$off('getInfoFromLogin')
-    EventBus.$on('getInfoFromLogin', res => {
-      console.log('로그인 성공', res)
-      this.userInfo = res
     })
   }
 }

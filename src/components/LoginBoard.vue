@@ -46,8 +46,8 @@ export default {
           .then(res => {
               this.result = res.data[0]
               this.getUserInfo(this.result)
-              EventBus.$emit("getInfoFromLogin", this.userInfo)
-              this.$router.go(-1)
+              EventBus.$emit('getInfoFromLogin', this.userInfo)
+              this.$router.push({name: 'MainBoard', params: { userInfo: this.userInfo}})
           })
           .catch(error => {
               console.log(error)
