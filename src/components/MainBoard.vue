@@ -18,7 +18,7 @@
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning" >로그인</b-button>
+                      <b-button id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
                 </b-col>
             </b-row>
@@ -64,7 +64,8 @@ export default {
         place: '',
         description: '',
         numOfpeople: ''
-      }
+      },
+      userInfo: []
     }
   },
   methods: {
@@ -97,13 +98,17 @@ export default {
     postOnclicked: function (result) {
       this.postFromPostBox = result
     }
-
   },
   created () {
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode
       this.onViewModeChanged('viewpost')
+    })
+    EventBus.$off('getInfoFromLogin')
+    EventBus.$on('getInfoFromLogin', res => {
+      console.log('로그인 성공', res)
+      this.userInfo = res
     })
   }
 }

@@ -192,8 +192,7 @@ export default {
               }
             })
           .then(response => {
-            console.log(response)
-            alert('글쓰기 성공!')
+            console.log('글쓰기 성공 : ' + response)
             // this.resetPost()
             this.$router.go()
           })
