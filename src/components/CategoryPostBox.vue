@@ -1,5 +1,5 @@
 <template>
-    <div v-if = "categoryProps" class="postbox_head">
+    <div v-if = "posts != null" class="postbox_head">
         <b-container class="body" v-for="(post, index) in posts"  :key="index">
             <b-row>
               <b-col sm="auto" id="proImg">
@@ -68,6 +68,7 @@ export default {
   },
   created () {
     this.category = this.categoryProps
+    this.posts = {}
     this.getPost()
   }
 }

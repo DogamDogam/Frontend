@@ -2,7 +2,12 @@
     <div id="Mainboard" class="main">
         <b-container id="main-page" class="body" fluid="md">
             <b-row align-v="start" id="header-page">
-                <b-row><b-col cols="20" md="center"><p id="Logo">DagamDagam</p></b-col></b-row>
+                <b-row style="text-align: center;">
+                  <b-col cols="20" md="center">
+                    <p id="Logo">나누미</p>
+                    <p id="font">물품 나눔 서비스</p>
+                  </b-col>
+                </b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
                       <b-dropdown-item @click="sort_text='정렬'">정렬</b-dropdown-item>
@@ -159,6 +164,17 @@ export default {
   font-family: yg-jalnan;
   color: #2F4F4F;
   margin-top: 20px;
+  margin-left: 100px;
+  display: inline-block;
+
+}
+#font {
+  text-align: center;
+  font-size: 30px;
+  font-family: yg-jalnan;
+  color: #2F4F4F;
+  display: inline-block;
+  margin-left: 20px;
 }
 
 #button {
