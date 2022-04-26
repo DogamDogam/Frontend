@@ -1,15 +1,15 @@
 <template>
-    <div v-if = "posts != null" class="postbox_head">
-        <b-container v-for="(post, index) in posts" :key="index">
+    <div v-if = "posts != null" class="postbox">
+        <b-container v-for="(post, index) in posts" :key="index" id="post_container" style="margin: 5px;">
             <b-row>
-              <b-col sm="auto" id="proImg">
-                <img :src="post.image" thumbnail fluid alt="Image 1" id="image">
+              <b-col id="postImg_col" cols="3">
+                <b-img :src="post.image" thumbnail fluid alt="Image 1" id="image" rounded> </b-img>
               </b-col>
-              <b-col class="d-grid gap-2" id="proTex">
+              <b-col align-self="baseline" class="d-grid gap-2" id="postContexts_col" cols="6">
                 <div id="title">{{post.title}}</div>
-                <div id="price">{{post.price}}</div>
+                <div id="price">{{post.price}}원</div>
               </b-col>
-              <b-col id="Peo">
+              <b-col cols="3" id="numAndButton_col">
                 <div>{{post.numOfpeople}}명</div>
                 <div><b-button @click="onViewModeChanged(index)">상세보기</b-button></div>
               </b-col>
@@ -33,6 +33,7 @@ export default {
         description: '',
         numOfpeople: ''
       },
+      commaPrice: '',
       post: []
     }
   },
@@ -48,10 +49,18 @@ export default {
       PostService.getPosts().then((response) => {
         console.log(response.data)
         this.posts = response.data
+        this.comma(this.posts)
       }).catch((error) => {
         console.log(error)
         this.posts = {}
       })
+    },
+    comma (res) {
+      console.log(res.length)
+      for (var i = 0; i < res.length; i++) {
+        var num = res[i].price
+        this.posts[i].price = num.toLocaleString('ko-KR')
+      }
     }
   },
   created () {
@@ -62,7 +71,12 @@ export default {
 </script>
 
 <style scoped>
-  .postbox_head {
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+* {
+font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+  .postbox {
     background: rgb(247, 203, 138);
     border-radius: 10px;
     margin: 5px;
@@ -70,31 +84,24 @@ export default {
     margin-top: 20px;
   }
   #image {
-    width: 100px;
-    height: 100px;
-    margin-left: -12px;
+    max-width: 200px;
+    max-height: 200px;
   }
-  #proImg {
-    background-color: white;
-    width: 100px;
-    height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  #proTex, #Peo {
-      margin-top : 5%;
-      margin-bottom: 5%;
-  }
-  #proTex div{
-      border: 2px dotted black;
-  }
-
-  #Peo {
-    max-width: 20%;
-  }
-
   #title, #price {
+    padding: 5px;
     width: auto;
+  }
+  #title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 2px solid #e9e9e9;
+  }
+  #price {
+    color: #545454 ;
+  }
+  #post_container {
+    padding: 10px;
+    border-bottom: 2px solid #F0F0F0;
   }
 </style>

@@ -23,7 +23,7 @@
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
                     <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning" v-if="!isLogined" @click="loginonClicked">로그인</b-button>
+                      <b-button id= "button" variant="outline-warning" v-if="!isLogined">로그인</b-button>
                     </router-link>
                     <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>

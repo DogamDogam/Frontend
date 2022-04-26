@@ -1,6 +1,6 @@
 <template>
     <div>
-        <post-box @postOnClicked="postOnClicked"></post-box>
+        <post-box @postOnClicked="postOnClicked" style="padding: 5px"></post-box>
     </div>
 </template>
 
