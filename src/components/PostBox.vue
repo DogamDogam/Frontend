@@ -5,13 +5,21 @@
               <b-col id="postImg_col" cols="3">
                 <b-img :src="post.image" thumbnail fluid alt="Image 1" id="image" rounded> </b-img>
               </b-col>
-              <b-col align-self="baseline" class="d-grid gap-2" id="postContexts_col" cols="6">
-                <div id="title">{{post.title}}</div>
-                <div id="price">{{post.price}}원</div>
-              </b-col>
-              <b-col cols="3" id="numAndButton_col">
-                <div>{{post.numOfpeople}}명</div>
-                <div><b-button @click="onViewModeChanged(index)">상세보기</b-button></div>
+              <b-col class="d-grid gap-1" id="postContexts_col" cols="6">
+                <b-row>
+                  <b-col align-self="start" id="title">
+                    <div>{{post.title}}</div>
+                  </b-col>
+                </b-row>
+                <b-row align-h="between">
+                  <b-col align-self="start" id="place">
+                    <div>{{post.place}}</div>
+                    <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
+                  </b-col>
+                  <b-col cols="3">
+                    <b-button @click="onViewModeChanged(index)">상세보기</b-button>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
         </b-container>
@@ -87,21 +95,22 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     max-width: 200px;
     max-height: 200px;
   }
-  #title, #price {
+  #title, #price, #place {
     padding: 5px;
     width: auto;
   }
   #title {
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: 700;
     text-align: left;
-    border-bottom: 2px solid #e9e9e9;
+    border-bottom: 2px solid #F7F7F7;
   }
-  #price {
-    color: #545454 ;
+  #place {
+    margin-top: -10px;
+    font-size: 0.9em;
+    color: #1F1F1F ;
   }
   #post_container {
     padding: 10px;
-    border-bottom: 2px solid #F0F0F0;
   }
 </style>
