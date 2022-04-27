@@ -40,19 +40,18 @@ export default {
   methods: {
     LoginonClicked () {
       var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
-
-      axios
-      .get('http://localhost:9090/oauth/kakao')
-          .then(res => {
-              this.result = res.data[0]
-              this.getUserInfo(this.result)
-              EventBus.$emit('getInfoFromLogin', this.userInfo)
-              this.$router.push({name: 'MainBoard', params: { userInfo: this.userInfo}})
-          })
-          .catch(error => {
-              console.log(error)
-              alert('로그인 실패')
-          })
+    //   axios
+    //   .get('http://localhost:9090/oauth/kakao/getUser')
+    //       .then(res => {
+    //           this.result = res.data[0]
+    //           this.getUserInfo(this.result)
+    //           EventBus.$emit('getInfoFromLogin', this.userInfo)
+    //           this.$router.push({name: 'MainBoard', params: { userInfo: this.userInfo}})
+    //       })
+    //       .catch(error => {
+    //           console.log(error)
+    //           alert('로그인 실패')
+    //       })
       kakaowindow.close()
     },
     getUserInfo (res) {
