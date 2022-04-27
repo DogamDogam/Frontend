@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
@@ -104,20 +104,20 @@ export default {
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result
-    },
-    getUser: function () {
-      axios
-        .get('http://localhost:9090/oauth/kakao/getUser')
-        .then(res => {
-          console.log(res.data[0])
-          // this.result = res.data[0]
-          // this.getUserInfo(this.result)
-        })
-        .catch(error => {
-          console.log(error)
-          alert('로그인 실패')
-        })
     }
+    // getUser: function () {
+    //   axios
+    //     .get('http://localhost:9090/oauth/kakao/getUser')
+    //     .then(res => {
+    //       console.log(res.data[0])
+    //       // this.result = res.data[0]
+    //       // this.getUserInfo(this.result)
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //       alert('로그인 실패')
+    //     })
+    // }
   },
   created () {
     if (this.$route.params.userInfo != null) {
@@ -129,7 +129,7 @@ export default {
       this.id = mode
       this.onViewModeChanged('viewpost')
     })
-    this.getUser()
+    // this.getUser()
   }
 }
 </script>
