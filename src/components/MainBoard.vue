@@ -41,7 +41,7 @@
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
-                <b-col style="text-align: center;">
+                <b-col v-if="sort_text == '정렬'" style="text-align: center;">
                   <b-button @click="decreasePageNum">이전</b-button>
                   <b-button id="nextBtn" ref="nextBtn" @click="increasePageNum">다음</b-button>
                 </b-col>
@@ -139,7 +139,7 @@ export default {
       if (this.pageNum >= this.totalPageNum) {
         this.pageNum = this.totalPageNum - 1
       }
-      if (this.pageNum === 1) alert('첫페이지입니다.')
+      if (this.pageNum === 0) alert('첫페이지입니다.')
       else {
         this.pageNum--
         this.$refs.nextBtn.disabled = false

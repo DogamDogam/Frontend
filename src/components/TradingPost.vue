@@ -48,29 +48,13 @@ export default {
     }
   },
   methods: {
-    onViewModeChanged: function (index) {
-      console.log('Main 보냈다: ', this.posts[index].id)
-      EventBus.$emit('eventGiveMain', this.posts[index].id) // 배열 값 viewPost.vue로 보냄
-      console.log('Post 보냈다: ', index)
-      EventBus.$emit('eventGivePost', index)
-      this.$emit('postOnClicked', this.posts)
-    },
     getPosts () {
-      axios.get('http://localhost:9090/api/posts/?page=' + this.pageNum)
+      axios.get('http://localhost:9090/api/posts/trade')
         .then((response) => {
           this.totalPage = response.data.totalPages
           EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달
-
-          console.log(response.data.content)
-          this.posts = response.data.content
-          // if (response.data.content.length === 0) { // 게시물이 없으면
-          //   this.pageLast = true
-          //   alert('마지막 페이지입니다.')
-          //   this.pageNum--
-          //   this.$parent.$parent.$refs.nextBtn.disabled = true
-          // } else {
-          //   this.pageLast = false
-          // }
+          console.log(response.data)
+          this.posts = response.data
           this.comma(this.posts)
         }).catch((error) => {
           console.log(error)
@@ -92,21 +76,6 @@ export default {
     })
   },
   watch: {
-    pageNum: function () {
-      this.getPosts()
-      if (this.totalPage === this.pageNum) {
-        console.log(this.pageNum)
-        this.pageLast = true
-        alert('마지막 페이지입니다.')
-        this.pageNum--
-        this.$parent.$parent.$refs.nextBtn.disabled = true
-      } else {
-        this.pageLast = false
-      }
-    }
-    // pageLast: function () {
-    //   this.$emit('informpageLast', this.pageLast, this.totalPage) // 마지막 페이지면 Mainboard에 알림
-    // }
   }
 }
 </script>

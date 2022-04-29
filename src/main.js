@@ -15,11 +15,13 @@ import PostList from './components/PostList'
 import PostBox from './components/PostBox'
 import CommentBoard from './components/CommentBoard'
 import CommentInput from './components/CommentInput'
-import SaleList from './components/SaleList'
-import PurchaseList from './components/PurchaseList'
+import TradingList from './components/TradingList'
+import waitingList from './components/WaitingList'
 import LikeList from './components/LikeList'
 import CategoryPostBox from './components/CategoryPostBox'
 import LoginBoard from './components/LoginBoard'
+import TradingPost from './components/TradingPost'
+import WaitingPost from './components/WaitingPost'
 
 export const EventBus = new Vue()
 
@@ -33,10 +35,12 @@ Vue.component('post-box', PostBox)
 Vue.component('category-postbox', CategoryPostBox)
 Vue.component('comment-board', CommentBoard)
 Vue.component('comment-input', CommentInput)
-Vue.component('sale-list', SaleList)
-Vue.component('purchase-list', PurchaseList)
+Vue.component('trading-list', TradingList)
+Vue.component('waiting-list', waitingList)
 Vue.component('like-list', LikeList)
 Vue.component('login-board', LoginBoard)
+Vue.component('trading-post', TradingPost)
+Vue.component('waiting-post', WaitingPost)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

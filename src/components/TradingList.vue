@@ -1,6 +1,6 @@
 <template>
     <div>
-        SaleList
+        TradingList
         <div>
             <button>Saling Btn</button>
             <button>Saled Btn</button>
@@ -11,7 +11,7 @@
             </select>
         </div>
         <div>
-            <post-box></post-box>
+            <trading-post></trading-post>
         </div>
     </div>
 </template>

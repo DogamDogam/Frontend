@@ -10,10 +10,10 @@
             </b-row>
             <b-row class="body_button" align-v="center">
                 <b-col sm>
-                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('saleList')">판매내역</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('tradingList')">거래중</b-button>
                 </b-col>
                 <b-col sm>
-                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('purchaseList')">구매내역</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('waitingList')">대기중</b-button>
                 </b-col>
                 <b-col sm>
                     <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('likeList')">관심목록</b-button>
@@ -22,8 +22,8 @@
             <b-row class="body_page">
                 <b-col>
                     <like-list v-if="viewMode == 'likeList'"></like-list>
-                    <purchase-list v-if="viewMode == 'purchaseList'"></purchase-list>
-                    <sale-list v-if="viewMode =='saleList'"></sale-list>
+                    <waiting-list v-if="viewMode == 'waitingList'"></waiting-list>
+                    <trading-list v-if="viewMode =='tradingList'"></trading-list>
                 </b-col>
             </b-row>
         </b-container>
