@@ -26,9 +26,8 @@
     </div>
 </template>
 <script>
-//  import axios from 'axios'
 import {EventBus} from '../main'
-import PostService from '../services/PostService'
+import axios from 'axios'
 export default {
   name: 'Posts',
   data () {
@@ -42,7 +41,10 @@ export default {
         numOfpeople: ''
       },
       commaPrice: '',
-      post: []
+      post: [],
+      pageNum: 1,
+      pageLast: false,
+      totalPage: 0
     }
   },
   methods: {
@@ -54,17 +56,28 @@ export default {
       this.$emit('postOnClicked', this.posts)
     },
     getPosts () {
-      PostService.getPosts().then((response) => {
-        console.log(response.data)
-        this.posts = response.data
-        this.comma(this.posts)
-      }).catch((error) => {
-        console.log(error)
-        this.posts = {}
-      })
+      axios.get('http://localhost:9090/api/posts/?page=' + this.pageNum)
+        .then((response) => {
+          this.totalPage = response.data.totalPages
+          EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달
+
+          console.log(response.data.content)
+          this.posts = response.data.content
+          // if (response.data.content.length === 0) { // 게시물이 없으면
+          //   this.pageLast = true
+          //   alert('마지막 페이지입니다.')
+          //   this.pageNum--
+          //   this.$parent.$parent.$refs.nextBtn.disabled = true
+          // } else {
+          //   this.pageLast = false
+          // }
+          this.comma(this.posts)
+        }).catch((error) => {
+          console.log(error)
+          this.posts = {}
+        })
     },
     comma (res) {
-      console.log(res.length)
       for (var i = 0; i < res.length; i++) {
         var num = res[i].price
         this.posts[i].price = num.toLocaleString('ko-KR')
@@ -74,6 +87,26 @@ export default {
   created () {
     this.posts = {}
     this.getPosts()
+    EventBus.$on('sendPageNum', num => {
+      this.pageNum = num
+    })
+  },
+  watch: {
+    pageNum: function () {
+      this.getPosts()
+      if (this.totalPage === this.pageNum) {
+        console.log(this.pageNum)
+        this.pageLast = true
+        alert('마지막 페이지입니다.')
+        this.pageNum--
+        this.$parent.$parent.$refs.nextBtn.disabled = true
+      } else {
+        this.pageLast = false
+      }
+    }
+    // pageLast: function () {
+    //   this.$emit('informpageLast', this.pageLast, this.totalPage) // 마지막 페이지면 Mainboard에 알림
+    // }
   }
 }
 </script>

@@ -28,7 +28,7 @@
                     <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>
             </b-row>
-            <b-row id="main-page-color" cols="2">
+            <b-row id="main-page-color" cols="2" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                 <b-col v-if="sort_text == '정렬'">
                   <div>
                     <post-list @postOnclicked="postOnclicked"></post-list>
@@ -41,8 +41,12 @@
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
+                <b-col style="text-align: center;">
+                  <b-button @click="decreasePageNum">이전</b-button>
+                  <b-button id="nextBtn" ref="nextBtn" @click="increasePageNum">다음</b-button>
+                </b-col>
             </b-row>
-            <b-row id="main-page-color">
+            <b-row id="main-page-color" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
                     <p>📞 010-0000-000</p>
@@ -77,7 +81,9 @@ export default {
         description: '',
         numOfpeople: ''
       },
-      user: {}
+      user: {},
+      pageNum: 1,
+      lastPage: false
     }
   },
   methods: {
@@ -104,7 +110,7 @@ export default {
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result
-    }
+    },
     // getUser: function () {
     //   axios
     //     .get('http://localhost:9090/oauth/kakao/getUser')
@@ -117,7 +123,28 @@ export default {
     //       console.log(error)
     //       alert('로그인 실패')
     //     })
-    // }
+    // },
+    increasePageNum: function () {
+      if (this.lastPage === false) { // 마지막 페이지가 아니면
+        this.pageNum++ // 다음 페이지
+      } else { // 마지막 페이지라면
+        this.$refs.nextBtn.disabled = true // 다음 버튼 비활성화
+        this.lastPage = false
+        this.pageNum = this.totalPageNum - 1
+      }
+      console.log(this.pageNum)
+    },
+    decreasePageNum: function () {
+      console.log(this.pageNum)
+      if (this.pageNum >= this.totalPageNum) {
+        this.pageNum = this.totalPageNum - 1
+      }
+      if (this.pageNum === 1) alert('첫페이지입니다.')
+      else {
+        this.pageNum--
+        this.$refs.nextBtn.disabled = false
+      }
+    }
   },
   created () {
     if (this.$route.params.userInfo != null) {
@@ -129,7 +156,17 @@ export default {
       this.id = mode
       this.onViewModeChanged('viewpost')
     })
+    EventBus.$on('totalPageNum', totalPageNum => {
+      this.totalPageNum = totalPageNum
+    })
     // this.getUser()
+  },
+  watch: {
+    pageNum: function () {
+      if (!this.lastPage) {
+        EventBus.$emit('sendPageNum', this.pageNum) // pageNum을 PostBox에 전달
+      }
+    }
   }
 }
 </script>
