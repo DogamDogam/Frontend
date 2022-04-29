@@ -43,6 +43,7 @@ export default {
       axios
       .get('http://localhost:9090/oauth/getUser')
           .then(res => {
+              console.log(res)
               this.result = res.data[0]
               this.getUserInfo(this.result)
               EventBus.$emit('getInfoFromLogin', this.userInfo)

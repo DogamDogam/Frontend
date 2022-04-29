@@ -1,11 +1,11 @@
 <template>
     <div v-if = "posts != null" class="postbox">
-        <b-container v-for="(post, index) in posts" :key="index" id="post_container" style="margin: 5px;">
-            <b-row>
+        <b-container fluid="sm" v-for="(post, index) in posts" :key="index" id="post_container" style="margin: 5px;">
+            <b-row md="4">
               <b-col id="postImg_col" cols="3">
                 <b-img :src="post.image" thumbnail fluid alt="Image 1" id="image" rounded> </b-img>
               </b-col>
-              <b-col class="d-grid gap-1" id="postContexts_col" cols="6">
+              <b-col class="d-grid gap-1" id="postContexts_col" cols="12" lg="10" xl="5">
                 <b-row>
                   <b-col align-self="start" id="title">
                     <div>{{post.title}}</div>
@@ -16,7 +16,7 @@
                     <div>{{post.place}}</div>
                     <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
                   </b-col>
-                  <b-col cols="3">
+                  <b-col cols="3" sm="4">
                     <b-button @click="onViewModeChanged(index)">상세보기</b-button>
                   </b-col>
                 </b-row>
