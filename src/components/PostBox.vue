@@ -30,8 +30,13 @@ import {EventBus} from '../main'
 import axios from 'axios'
 export default {
   name: 'Posts',
+  props: {
+    categoryProps: Array
+  },
   data () {
     return {
+      category: '',
+      categoryNum: '',
       posts: {
         image: '',
         title: '',
@@ -56,6 +61,22 @@ export default {
       this.$emit('postOnClicked', this.posts)
     },
     getPosts () {
+      EventBus.$on('eventGiveMainSort', mode => {
+        console.log('Sort 받았다: ', mode)
+        this.category = mode
+        if (this.category === '식재료') this.categoryNum = 1
+        else if (this.category === '배달비') this.categoryNum = 2
+        else if (this.category === '물품') this.categoryNum = 3
+        axios
+          .get(
+            'http://localhost:9090/api/posts/category/' + this.categoryNum
+          ).then((response) => {
+            console.log(response)
+            this.posts = response.data.content
+          }).catch((error) => {
+            console.log(error)
+          })
+      })
       axios.get('http://localhost:9090/api/posts/?page=' + this.pageNum)
         .then((response) => {
           this.totalPage = response.data.totalPages
@@ -82,14 +103,10 @@ export default {
       }
     }
   },
-  created () {
-    this.posts = {}
-    this.getPosts()
-    EventBus.$on('sendPageNum', num => {
-      this.pageNum = num
-    })
-  },
   watch: {
+    categoryProps: function () {
+      this.getPost()
+    },
     pageNum: function () {
       this.getPosts()
       if (this.totalPage <= this.pageNum) {
@@ -105,6 +122,14 @@ export default {
     // pageLast: function () {
     //   this.$emit('informpageLast', this.pageLast, this.totalPage) // 마지막 페이지면 Mainboard에 알림
     // }
+  },
+  created () {
+    this.category = this.categoryProps
+    this.posts = {}
+    this.getPosts()
+    EventBus.$on('sendPageNum', num => {
+      this.pageNum = num
+    })
   }
 }
 </script>
