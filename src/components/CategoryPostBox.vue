@@ -47,6 +47,7 @@ export default {
     },
     getPost () {
       this.category = this.categoryProps
+      console.log('bbb: ', this.category)
       if (this.category === '식재료') this.categoryNum = 1
       else if (this.category === '배달비') this.categoryNum = 2
       else if (this.category === '물품') this.categoryNum = 3

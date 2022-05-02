@@ -10,7 +10,7 @@
                 </b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
-                      <b-dropdown-item @click="sort_text='정렬'">정렬</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected()">정렬</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
                       <b-dropdown-item @click="ingredientOnSelected()">식재료</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
@@ -29,19 +29,22 @@
                 </b-col>
             </b-row>
             <b-row id="main-page-color" cols="2" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
-                <b-col v-if="sort_text == '정렬'">
+                <b-col>
                   <div>
                     <post-list @postOnclicked="postOnclicked"></post-list>
+                    <!--<post-box @postOnClicked="postOnClicked" style="padding: 5px" v-bind:categoryProps="sort_text"></post-box></b-col>-->
                   </div>
                 </b-col>
+                <!--
                 <b-col v-else>
                   <category-postbox v-bind:categoryProps="sort_text"></category-postbox>
                 </b-col>
+                -->
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" :userInfo="user" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
-                <b-col v-if="sort_text == '정렬'" style="text-align: center;">
+                <b-col style="text-align: center;">
                   <b-button @click="decreasePageNum">이전</b-button>
                   <b-button id="nextBtn" ref="nextBtn" @click="increasePageNum">다음</b-button>
                 </b-col>
@@ -99,14 +102,21 @@ export default {
       this.isLogined = false
       this.user = null
     },
+    sortOnSelected: function () {
+      this.sort_text = '정렬'
+      EventBus.$emit('eventGiveMainSort', this.sort_text)
+    },
     deliveryOnSelected: function () {
       this.sort_text = '배달비'
+      EventBus.$emit('eventGiveMainSort', this.sort_text)
     },
     ingredientOnSelected: function () {
       this.sort_text = '식재료'
+      EventBus.$emit('eventGiveMainSort', this.sort_text)
     },
     goodsOnSelected: function () {
       this.sort_text = '물품'
+      EventBus.$emit('eventGiveMainSort', this.sort_text)
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result
