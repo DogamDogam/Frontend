@@ -39,7 +39,7 @@
                 </b-col>
                 <b-col>
                     <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
-                    <view-post v-bind:idProps="id" :postProp="postFromPostBox" v-if="viewMode =='viewpost'"></view-post>
+                    <view-post v-bind:idProps="id" :postProp="postFromPostBox" :userInfo="user" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
                 <b-col v-if="sort_text == '정렬'" style="text-align: center;">
                   <b-button @click="decreasePageNum">이전</b-button>

@@ -2,7 +2,7 @@
   <b-container class="comment_body">
     <b-row>
       <b-col class="icon_area" cols="2">
-          <b-avatar id="user_icon" rounded :src="user_icon"></b-avatar>
+          <b-avatar id="user_icon" size="lg" rounded :src="user_icon"></b-avatar>
       </b-col>
       <b-col>
         <b-form-textarea
@@ -15,7 +15,7 @@
         >
         </b-form-textarea>
       </b-col>
-      <b-col cols="2"><b-button @click="commentOnClick()">입력</b-button></b-col>
+      <b-col cols="2"><b-button size="lg" @click="commentOnClick()">입력</b-button></b-col>
     </b-row>
     <b-row>
       <b-col>
@@ -28,13 +28,16 @@
 import axios from 'axios'
 export default {
   props: {
-    postIdProps: this.postId
+    postIdProps: this.postId,
+    userInfo: {
+      type: Object
+    }
   },
   data () {
     return {
       postId: '',
       comment: '',
-      user_icon: 'https://placekitten.com/300/300',
+      user_icon: this.userInfo.userImage,
       body: {
         image: '',
         content: ''
@@ -85,9 +88,5 @@ export default {
   }
   .icon_area {
     text-align: center;
-    width: 10%;
-  }
-  #user_icon {
-    margin-top: 5px;
   }
 </style>

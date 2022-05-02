@@ -16,29 +16,27 @@
           <b-col>
             <div class="Image_state">
               <state></state>
-              <img :src="post.image" thumbnail fluid alt="Image 1" id="image">
+              <b-img :src="post.image" thumbnail fluid alt="Image 1" id="image"></b-img>
             </div>
           </b-col>
-        </b-row>
+          <b-col id="text_box">
+            <b-row class="title_box" align-v="center">
+              <b-col v-if="Mode=='viewMode'" id="title" md="auto">{{post.title}}</b-col>
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
+            </b-row>
 
-        <b-row class="text">
-          <b-col v-if="Mode=='viewMode'" id="title">{{post.title}}</b-col>
-          <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
-        </b-row>
+            <b-row id="text">
+              <b-col id="category" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
+              <b-col id="people" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
+              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
+            </b-row>
 
-        <b-row class="text">
-          <b-col id="category">{{post.category}}</b-col>
-          <b-col id="people">{{post.numOfpeople}}</b-col>
-        </b-row>
-
-        <b-row class="text">
-          <b-col id="price">{{post.price}}</b-col>
-        </b-row>
-
-        <b-row class="text">
-          <b-col v-if="Mode=='viewMode'" id="description">{{post.description}}</b-col>
-          <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="description" v-model="description" placeholder="내용"></b-form-input></b-col>
-        </b-row>
+            <b-row class="descript_box">
+              <b-col v-if="Mode=='viewMode'" id="description">{{post.description}}</b-col>
+              <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="description" v-model="description" placeholder="내용"></b-form-input></b-col>
+            </b-row>
+          </b-col>
+      </b-row>
 
         <b-row>
           <b-col>
@@ -52,8 +50,8 @@
         </div>
 
         <b-collapse id="my-collapse" v-model="visible">
-          <comment-input class="comment_input" v-bind:postIdProps="postId"></comment-input>
-          <comment-board class="comment_input" v-bind:postIdProps="postId"></comment-board>
+          <comment-input class="comment_input" :userInfo="userInfo" v-bind:postIdProps="postId"></comment-input>
+          <comment-board class="comment_input" :userInfo="userInfo" v-bind:postIdProps="postId"></comment-board>
         </b-collapse>
           </b-col>
         </b-row>
@@ -82,6 +80,9 @@ export default {
           numOfpeople: ''
         }
       }
+    },
+    userInfo: {
+      type: Object
     }
   },
   data () {
@@ -210,14 +211,27 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+* {
+font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
 #body{
   margin: 10px;
+  border-radius: 10px;
+  background: rgb(247, 203, 138);
+  margin: 5px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.badge {
+  background-color: gray;
+  font-size: 1.1em;
 }
 .text {
   text-align: center;
   width: 50%;
-  height: 50px;
-  margin-left: 25%;
 }
 #button {
   text-align: center;
@@ -225,7 +239,6 @@ export default {
   height: 50px;
   margin-left: 25%;
 }
-
   #my-collapse {
     border: 1px solid rgb(255, 154, 22);
     border-radius: 10px;
@@ -236,6 +249,13 @@ export default {
     height: 200px;
   }
 
+  .descript_box {
+    text-align: left;
+    font-size: 1.2em;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
   .comment_input {
     margin: 10px;
     position: relative;
@@ -249,16 +269,18 @@ export default {
   .toggle_button {
     width: 95%;
   }
-  #price, #description, #title {
-    width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid #d2d2d2;
+  .title_box {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 2px solid rgb(247, 203, 138);
   }
-  #category, #people {
-    border: 1px solid #d2d2d2;
-    background-color: white;
-    border-radius: 10px;
+  #description {
+    width: 300px;
+  }
+  #category, #people, #price {
+    margin-top: 10px;
+    color: #1F1F1F;
   }
   #category {
     margin-right: 5px;

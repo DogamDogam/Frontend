@@ -21,11 +21,14 @@ import axios from 'axios'
 import {EventBus} from '../main'
 export default {
   props: {
-    postIdProps: this.postId
+    postIdProps: this.postId,
+    userInfo: {
+      type: Object
+    }
   },
   data () {
     return {
-      user_icon: 'https://placekitten.com/300/300',
+      user_icon: this.userInfo.userImage,
       postId: '',
       replys: {
         image: '',

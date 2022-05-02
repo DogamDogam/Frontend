@@ -141,7 +141,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
   #place {
     margin-top: -10px;
     font-size: 0.9em;
-    color: #1F1F1F ;
+    color: #1F1F1F;
   }
   #post_container {
     padding: 10px;
