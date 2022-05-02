@@ -82,7 +82,7 @@ export default {
         numOfpeople: ''
       },
       user: {},
-      pageNum: 1,
+      pageNum: 0,
       lastPage: false
     }
   },

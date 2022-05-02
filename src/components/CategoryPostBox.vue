@@ -23,7 +23,7 @@ import {EventBus} from '../main'
 export default {
   name: 'CategoryPosts',
   props: {
-    categoryProps: this.category
+    categoryProps: Array
   },
   data () {
     return {

@@ -60,8 +60,6 @@ export default {
         .then((response) => {
           this.totalPage = response.data.totalPages
           EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달
-
-          console.log(response.data.content)
           this.posts = response.data.content
           // if (response.data.content.length === 0) { // 게시물이 없으면
           //   this.pageLast = true
@@ -94,11 +92,11 @@ export default {
   watch: {
     pageNum: function () {
       this.getPosts()
-      if (this.totalPage === this.pageNum) {
+      if (this.totalPage <= this.pageNum) {
         console.log(this.pageNum)
         this.pageLast = true
         alert('마지막 페이지입니다.')
-        this.pageNum--
+        this.pageNum -= 1
         this.$parent.$parent.$refs.nextBtn.disabled = true
       } else {
         this.pageLast = false
