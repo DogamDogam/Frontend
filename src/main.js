@@ -18,7 +18,6 @@ import CommentInput from './components/CommentInput'
 import TradingList from './components/TradingList'
 import waitingList from './components/WaitingList'
 import LikeList from './components/LikeList'
-import CategoryPostBox from './components/CategoryPostBox'
 import LoginBoard from './components/LoginBoard'
 import TradingPost from './components/TradingPost'
 import WaitingPost from './components/WaitingPost'
@@ -32,7 +31,6 @@ Vue.component('state', State)
 Vue.component('write-post', WritePost)
 Vue.component('post-list', PostList)
 Vue.component('post-box', PostBox)
-Vue.component('category-postbox', CategoryPostBox)
 Vue.component('comment-board', CommentBoard)
 Vue.component('comment-input', CommentInput)
 Vue.component('trading-list', TradingList)

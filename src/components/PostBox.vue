@@ -31,7 +31,6 @@ import axios from 'axios'
 export default {
   name: 'Posts',
   props: {
-    categoryProps: Array
   },
   data () {
     return {
@@ -60,40 +59,53 @@ export default {
       EventBus.$emit('eventGivePost', index)
       this.$emit('postOnClicked', this.posts)
     },
+    emitTotalPageNum (res) {
+      this.totalPage = res.data.totalPages
+      EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 MainBoard에에 전달
+    },
     getPosts () {
-      EventBus.$on('eventGiveMainSort', mode => {
-        console.log('Sort 받았다: ', mode)
-        this.category = mode
-        if (this.category === '식재료') this.categoryNum = 1
-        else if (this.category === '배달비') this.categoryNum = 2
-        else if (this.category === '물품') this.categoryNum = 3
-        axios
-          .get(
-            'http://localhost:9090/api/posts/category/' + this.categoryNum
-          ).then((response) => {
-            console.log(response)
-            this.posts = response.data.content
-          }).catch((error) => {
-            console.log(error)
-          })
-      })
       axios.get('http://localhost:9090/api/posts/?page=' + this.pageNum)
         .then((response) => {
-          this.totalPage = response.data.totalPages
-          EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달
+          this.emitTotalPageNum(response)
           this.posts = response.data.content
-          // if (response.data.content.length === 0) { // 게시물이 없으면
-          //   this.pageLast = true
-          //   alert('마지막 페이지입니다.')
-          //   this.pageNum--
-          //   this.$parent.$parent.$refs.nextBtn.disabled = true
-          // } else {
-          //   this.pageLast = false
-          // }
           this.comma(this.posts)
         }).catch((error) => {
           console.log(error)
           this.posts = {}
+        })
+    },
+    getCategory () {
+      EventBus.$on('eventGiveMainSort', mode => {
+        console.log('Sort 받았다: ', mode)
+        this.pageNum = 0
+        this.$parent.$parent.$refs.nextBtn.disabled = false
+        this.category = mode
+        this.setCategoryNum()
+      })
+    },
+    setCategoryNum () {
+      if (this.category === '식재료') {
+        this.categoryNum = 1
+        this.getCategoryPosts(this.categoryNum)
+      } else if (this.category === '배달비') {
+        this.categoryNum = 2
+        this.getCategoryPosts(this.categoryNum)
+      } else if (this.category === '물품') {
+        this.categoryNum = 3
+        this.getCategoryPosts(this.categoryNum)
+      } else if (this.category === '정렬') {
+        this.getPosts()
+      }
+    },
+    getCategoryPosts (categoryNum) {
+      axios
+        .get(
+          'http://localhost:9090/api/posts/category/' + categoryNum + '?page=' + this.pageNum)
+        .then((response) => {
+          this.emitTotalPageNum(response)
+          this.posts = response.data.content
+        }).catch((error) => {
+          console.log(error)
         })
     },
     comma (res) {
@@ -101,14 +113,8 @@ export default {
         var num = res[i].price
         this.posts[i].price = num.toLocaleString('ko-KR')
       }
-    }
-  },
-  watch: {
-    categoryProps: function () {
-      this.getPost()
     },
-    pageNum: function () {
-      this.getPosts()
+    checkLastPage () {
       if (this.totalPage <= this.pageNum) {
         console.log(this.pageNum)
         this.pageLast = true
@@ -119,13 +125,32 @@ export default {
         this.pageLast = false
       }
     }
+  },
+  watch: {
+    categoryProps: function () {
+      this.getPost()
+    },
+    pageNum: function () {
+      if (this.categoryNum === '') {
+        console.log(this.category)
+        this.getPosts()
+        this.checkLastPage()
+      } else {
+        this.setCategoryNum()
+        this.checkLastPage()
+      }
+    },
+    category: function () {
+      this.getCategoryPosts(this.categoryNum)
+    }
     // pageLast: function () {
     //   this.$emit('informpageLast', this.pageLast, this.totalPage) // 마지막 페이지면 Mainboard에 알림
     // }
   },
   created () {
-    this.category = this.categoryProps
+    // this.category = this.categoryProps
     this.posts = {}
+    this.getCategory() // 카테고리를 눌렀는지
     this.getPosts()
     EventBus.$on('sendPageNum', num => {
       this.pageNum = num
