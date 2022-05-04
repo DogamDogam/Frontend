@@ -41,7 +41,7 @@
                 </b-col>
                 -->
                 <b-col>
-                    <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
+                    <write-post id="writepost" v-if="viewMode =='writepost'" :userInfo="user" style="overflow: auto;"></write-post>
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" :userInfo="user" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
                 <b-col style="text-align: center;">
@@ -65,11 +65,6 @@
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
-  props: {
-    userInfo: {
-      type: Object
-    }
-  },
   data () {
     return {
       viewMode: 'writepost',
@@ -151,10 +146,6 @@ export default {
     }
   },
   created () {
-    if (this.$route.params.userInfo != null) {
-      this.user = this.$route.params.userInfo
-      this.isLogined = true
-    }
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode
@@ -173,6 +164,12 @@ export default {
         this.totalPageNum = totalPageNum
         console.log(this.totalPageNum)
       })
+    }
+  },
+  mounted () {
+    if (this.$route.query.data != null) {
+      this.user = JSON.parse(this.$route.query.data).userInfo
+      this.isLogined = true
     }
   }
 }
