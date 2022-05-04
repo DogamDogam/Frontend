@@ -13,25 +13,28 @@
           </b-col>
         </b-row>
         <b-row class="Image_area">
-          <b-col>
+          <b-col cols="12" md="auto">
             <div class="Image_state">
               <state></state>
               <b-img :src="post.image" thumbnail fluid alt="Image 1" id="image"></b-img>
             </div>
           </b-col>
-          <b-col id="text_box">
+          <b-col>
             <b-row class="title_box" align-v="center">
-              <b-col v-if="Mode=='viewMode'" id="title" md="auto">{{post.title}}</b-col>
+              <b-col v-if="Mode=='viewMode'" md="auto"><div id="title">{{post.title}}</div></b-col>
               <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
             </b-row>
 
             <b-row id="text">
-              <b-col id="category" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
-              <b-col id="people" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
-              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
+              <b-col id="category" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="category" v-model="category" placeholder="카테고리"></b-form-input></b-col>
+              <b-col id="people" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="numOfpeople" v-model="numOfpeople" placeholder="참여인원"></b-form-input></b-col>
+              <b-col id="price" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="price" v-model="price" placeholder="가격"></b-form-input></b-col>
             </b-row>
 
-            <b-row class="descript_box">
+            <b-row>
               <b-col v-if="Mode=='viewMode'" id="description">{{post.description}}</b-col>
               <b-col v-else-if="Mode=='updateMode'"><b-form-input :id="description" v-model="description" placeholder="내용"></b-form-input></b-col>
             </b-row>
@@ -248,14 +251,6 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     width: 300px;
     height: 200px;
   }
-
-  .descript_box {
-    text-align: left;
-    font-size: 1.2em;
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
   .comment_input {
     margin: 10px;
     position: relative;
@@ -273,10 +268,16 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     font-size: 1.5em;
     font-weight: 700;
     text-align: left;
-    border-bottom: 2px solid rgb(247, 203, 138);
+    border-bottom: 2px solid white;
+    max-width: 400px;
   }
   #description {
     width: 300px;
+    text-align: left;
+    font-size: 1.2em;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
   }
   #category, #people, #price {
     margin-top: 10px;
