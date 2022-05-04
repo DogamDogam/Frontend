@@ -118,7 +118,7 @@ export default {
       if (this.totalPage <= this.pageNum) {
         console.log(this.pageNum)
         this.pageLast = true
-        alert('마지막 페이지입니다.')
+        // alert('마지막 페이지입니다.') // 중첩 오류
         this.pageNum -= 1
         this.$parent.$parent.$refs.nextBtn.disabled = true
       } else {
@@ -132,10 +132,10 @@ export default {
     },
     pageNum: function () {
       if (this.categoryNum === '') {
-        console.log(this.category)
         this.getPosts()
         this.checkLastPage()
       } else {
+        console.log(this.categoryNum)
         this.setCategoryNum()
         this.checkLastPage()
       }

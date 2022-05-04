@@ -45,7 +45,7 @@
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" :userInfo="user" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
                 <b-col style="text-align: center;">
-                  <b-button @click="decreasePageNum">이전</b-button>
+                  <b-button id="prevBtn" ref="prevBtn" @click="decreasePageNum">이전</b-button>
                   <b-button id="nextBtn" ref="nextBtn" @click="increasePageNum">다음</b-button>
                 </b-col>
             </b-row>
@@ -106,7 +106,8 @@ export default {
       EventBus.$emit('eventGiveMainSort', sortText)
     },
     sortOnSelected: function (event) {
-      this.sendPostCategory(event.target.innerHTML)
+      this.sort_text = event.target.innerHTML
+      this.sendPostCategory(this.sort_text)
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result
@@ -125,6 +126,7 @@ export default {
     //     })
     // },
     increasePageNum: function () {
+      this.$refs.prevBtn.disabled = false // 이전 버튼 비활성화
       if (this.lastPage === false) { // 마지막 페이지가 아니면
         this.pageNum++ // 다음 페이지
       } else { // 마지막 페이지라면
@@ -139,8 +141,10 @@ export default {
       if (this.pageNum >= this.totalPageNum) {
         this.pageNum = this.totalPageNum - 1
       }
-      if (this.pageNum === 0) alert('첫페이지입니다.')
-      else {
+      if (this.pageNum === 0) {
+        alert('첫페이지입니다.')
+        this.$refs.prevBtn.disabled = true // 이전 버튼 비활성화
+      } else {
         this.pageNum--
         this.$refs.nextBtn.disabled = false
       }
@@ -156,9 +160,6 @@ export default {
       this.id = mode
       this.onViewModeChanged('viewpost')
     })
-    EventBus.$on('totalPageNum', totalPageNum => {
-      this.totalPageNum = totalPageNum
-    })
     // this.getUser()
   },
   watch: {
@@ -166,6 +167,12 @@ export default {
       if (!this.lastPage) {
         EventBus.$emit('sendPageNum', this.pageNum) // pageNum을 PostBox에 전달
       }
+    },
+    sort_text: function () {
+      EventBus.$on('totalPageNum', totalPageNum => {
+        this.totalPageNum = totalPageNum
+        console.log(this.totalPageNum)
+      })
     }
   }
 }
