@@ -10,13 +10,13 @@
                 </b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
-                      <b-dropdown-item @click="sortOnSelected()">정렬</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">정렬</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="ingredientOnSelected()">식재료</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">식재료</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="deliveryOnSelected()">배달비</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">배달비</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="goodsOnSelected()">물품</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">물품</b-dropdown-item>
                     </b-dropdown>
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
@@ -102,21 +102,11 @@ export default {
       this.isLogined = false
       this.user = null
     },
-    sortOnSelected: function () {
-      this.sort_text = '정렬'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
+    sendPostCategory (sortText) {
+      EventBus.$emit('eventGiveMainSort', sortText)
     },
-    deliveryOnSelected: function () {
-      this.sort_text = '배달비'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
-    },
-    ingredientOnSelected: function () {
-      this.sort_text = '식재료'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
-    },
-    goodsOnSelected: function () {
-      this.sort_text = '물품'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
+    sortOnSelected: function (event) {
+      this.sendPostCategory(event.target.innerHTML)
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result

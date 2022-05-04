@@ -62,11 +62,11 @@ export default {
       ).then((response) => {
         console.log(response)
         alert('댓글 작성 완료')
+        this.comment = ''
+        this.$router.go()
       }).catch((error) => {
         console.log(error)
       })
-      this.comment = ''
-      this.$router.go()
     }
   },
   watch: {
