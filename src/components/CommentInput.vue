@@ -47,8 +47,9 @@ export default {
   methods: {
     commentOnClick: function () {
       this.body = {
-        image: '임시image',
-        content: this.comment
+        image: this.userInfo.userImage,
+        content: this.comment,
+        userId: this.userInfo.userId
       }
       console.log(this.postId)
       axios.post(
