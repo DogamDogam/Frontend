@@ -53,7 +53,6 @@ export default {
               console.log(error)
               alert('로그인 실패')
           })
-      kakaowindow.close()
     },
     getUserInfo (res) {
         this.userInfo = res
