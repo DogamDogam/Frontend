@@ -107,6 +107,11 @@
 <script>
 import axios from 'axios'
 export default {
+  props: {
+    userInfo: {
+      type: Object
+    }
+  },
   data () {
     return {
       items: ['식재료', '배달비', '물품'],
@@ -118,7 +123,8 @@ export default {
         price: '',
         category: '',
         numOfpeople: 1,
-        description: ''
+        description: '',
+        userId: ''
       },
       image: '',
       title: '',
@@ -167,6 +173,9 @@ export default {
       if ((this.image === '') || (this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
         alert('내용을 모두 채워주세요!')
         return false
+      } else if (this.userInfo.userId === '') {
+        alert('로그인 이후 글쓰기가 가능합니다')
+        return false
       }
       return true
     },
@@ -179,7 +188,8 @@ export default {
           price: this.price,
           category: this.selectedItem,
           numOfpeople: this.numOfpeople,
-          description: this.description
+          description: this.description,
+          userId: this.userInfo.userId
         }
 
         axios
@@ -225,6 +235,11 @@ export default {
     },
     validateDescription: function () {
       return this.description != null && this.description !== '' && this.description.length <= 300
+    }
+  },
+  watch: {
+    userInfo () {
+      this.post.userId = this.userInfo.userId
     }
   }
 }
