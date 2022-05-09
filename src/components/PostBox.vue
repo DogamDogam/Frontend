@@ -17,6 +17,10 @@
                     <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
                   </b-col>
                   <b-col cols="3" sm="4">
+                    <b-icon icon="heart-fill" class="gap_margin_5px_horizontal"
+                      :style="currentMode == 'grid' ? 'color:red;' : ''"
+                      v-on:click="greet()"
+                    />
                     <b-button @click="onViewModeChanged(index)">상세보기</b-button>
                   </b-col>
                 </b-row>
@@ -48,10 +52,14 @@ export default {
       post: [],
       pageNum: 0,
       pageLast: false,
-      totalPage: 0
+      totalPage: 0,
+      currentMode: ''
     }
   },
   methods: {
+    greet: function () {
+      this.currentMode === 'grid' ? this.currentMode = '' : this.currentMode = 'grid'
+    },
     onViewModeChanged: function (index) {
       console.log('Main 보냈다: ', this.posts[index].id)
       EventBus.$emit('eventGiveMain', this.posts[index].id) // 배열 값 viewPost.vue로 보냄
@@ -94,10 +102,12 @@ export default {
         this.categoryNum = 3
         this.getCategoryPosts(this.categoryNum)
       } else if (this.category === '정렬') {
-        this.getPosts()
+        this.categoryNum = 0
+        this.getCategoryPosts(this.categoryNum)
       }
     },
     getCategoryPosts (categoryNum) {
+      console.log('다시 0이 되었습니다: ' + this.pageNum)
       axios
         .get(
           'http://localhost:9090/api/posts/category/' + categoryNum + '?page=' + this.pageNum)
