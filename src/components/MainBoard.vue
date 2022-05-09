@@ -90,7 +90,7 @@ export default {
       this.viewMode = mode
     },
     dealingOnClick: function () {
-      this.$router.push('DealingList')
+      this.$router.push({name: 'DealingList', query: { user: this.user }})
     },
     logoutonClicked: function () {
       alert('로그아웃 성공')

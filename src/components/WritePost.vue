@@ -239,7 +239,9 @@ export default {
   },
   watch: {
     userInfo () {
-      this.post.userId = this.userInfo.userId
+      if (this.post.userId !== null) {
+        this.post.userId = this.userInfo.userId
+      }
     }
   }
 }

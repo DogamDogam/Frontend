@@ -46,8 +46,8 @@ export default {
               console.log(res)
               this.result = res.data[0]
               this.getUserInfo(this.result)
-              EventBus.$emit('getInfoFromLogin', this.userInfo)
               this.$router.push({name: 'MainBoard', query: { data : JSON.stringify( {userInfo: this.userInfo})}})
+              kakaowindow.close()
           })
           .catch(error => {
               console.log(error)
