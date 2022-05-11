@@ -137,7 +137,8 @@ export default {
       focusOnPrice: false,
       focusOnPlace: false,
       focusOnDescription: false,
-      numberCheck: false
+      numberCheck: false,
+      userId: ''
     }
   },
   methods: {
@@ -173,51 +174,53 @@ export default {
       if ((this.image === '') || (this.title === '') || (this.place === '') || (this.price === '') || (this.description === '')) {
         alert('내용을 모두 채워주세요!')
         return false
-      } else if (this.userInfo.userId === '') {
-        alert('로그인 이후 글쓰기가 가능합니다')
-        return false
       }
       return true
     },
     onPostClicked () {
-      if (this.postNullCheck()) {
-        this.post = {
-          image: this.image,
-          title: this.title,
-          place: this.place,
-          price: this.price,
-          category: this.selectedItem,
-          numOfpeople: this.numOfpeople,
-          description: this.description,
-          userId: this.userInfo.userId
-        }
+      if (this.userId === '') {
+        alert('로그인을 해주세요!')
+      } else {
+        if (this.postNullCheck()) {
+          this.post = {
+            image: this.image,
+            title: this.title,
+            place: this.place,
+            price: this.price,
+            category: this.selectedItem,
+            numOfpeople: this.numOfpeople,
+            description: this.description,
+            userId: this.userInfo.userId
+          }
 
-        axios
-          .post(
-            'http://localhost:9090/api/posts',
-            JSON.stringify(this.post),
-            {
-              headers: {
-                'Content-Type': 'application/json'
-              }
+          axios
+            .post(
+              'http://localhost:9090/api/posts',
+              JSON.stringify(this.post),
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then(response => {
+              console.log('글쓰기 성공 : ' + response)
+              alert('글쓰기 성공!')
+              // this.resetPost()
+              this.$router.go()
             })
-          .then(response => {
-            console.log('글쓰기 성공 : ' + response)
-            alert('글쓰기 성공!')
-            // this.resetPost()
-            this.$router.go()
-          })
-          .catch(error => {
-            console.log(error)
-            alert('글쓰기 실패!')
-            this.resetPost()
-          })
+            .catch(error => {
+              console.log(error)
+              alert('글쓰기 실패!')
+              this.resetPost()
+            })
+        }
       }
     },
     onCancelClicked () {
       this.resetPost()
     }
-
+  },
+  created () {
   },
   computed: {
     validateTitle: function () {
@@ -239,9 +242,7 @@ export default {
   },
   watch: {
     userInfo () {
-      if (this.post.userId !== null) {
-        this.post.userId = this.userInfo.userId
-      }
+      this.userId = this.userInfo.userId
     }
   }
 }

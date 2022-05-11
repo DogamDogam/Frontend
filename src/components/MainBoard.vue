@@ -52,7 +52,6 @@
             <b-row id="main-page-color" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
-                    <p>📞 010-0000-000</p>
                     <p>🎈 강남대학교 소프트웨어응용학부</p>
                   </div>
             </b-row>
@@ -164,6 +163,14 @@ export default {
         this.totalPageNum = totalPageNum
         console.log(this.totalPageNum)
       })
+    },
+    isLogined: function () {
+      if (this.isLogined === true) {
+        this.user = JSON.parse(this.$route.query.data).userInfo
+        console.log(this.user)
+      } else {
+        this.user = {}
+      }
     }
   },
   mounted () {
