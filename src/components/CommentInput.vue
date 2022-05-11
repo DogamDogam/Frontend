@@ -40,7 +40,9 @@ export default {
       user_icon: this.userInfo.userImage,
       body: {
         image: '',
-        content: ''
+        content: '',
+        userId: '',
+        userName: ''
       }
     }
   },
@@ -49,7 +51,8 @@ export default {
       this.body = {
         image: this.userInfo.userImage,
         content: this.comment,
-        userId: this.userInfo.userId
+        userId: this.userInfo.userId,
+        userName: this.userInfo.userNickname
       }
       console.log(this.postId)
       axios.post(
