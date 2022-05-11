@@ -21,17 +21,17 @@
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
+                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning" v-if="!isLogined">로그인</b-button>
+                      <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
-                    <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
+                    <b-button v-if="isLogined" id="button" variant="outline-warning" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page-color" cols="2" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                 <b-col>
                   <div>
-                    <post-list @postOnclicked="postOnclicked"></post-list>
+                    <post-list @postOnclicked="postOnclicked" :userInfo="user"></post-list>
                     <!--<post-box @postOnClicked="postOnClicked" style="padding: 5px" v-bind:categoryProps="sort_text"></post-box></b-col>-->
                   </div>
                 </b-col>
@@ -106,19 +106,6 @@ export default {
     postOnclicked: function (result) {
       this.postFromPostBox = result
     },
-    // getUser: function () {
-    //   axios
-    //     .get('http://localhost:9090/oauth/kakao/getUser')
-    //     .then(res => {
-    //       console.log(res.data[0])
-    //       // this.result = res.data[0]
-    //       // this.getUserInfo(this.result)
-    //     })
-    //     .catch(error => {
-    //       console.log(error)
-    //       alert('로그인 실패')
-    //     })
-    // },
     increasePageNum: function () {
       this.$refs.prevBtn.disabled = false // 이전 버튼 비활성화
       if (this.lastPage === false) { // 마지막 페이지가 아니면

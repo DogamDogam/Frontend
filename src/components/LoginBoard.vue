@@ -47,7 +47,7 @@ export default {
               this.result = res.data[0]
               this.getUserInfo(this.result)
               this.$router.push({name: 'MainBoard', query: { data : JSON.stringify( {userInfo: this.userInfo})}})
-              kakaowindow.close()
+            //   kakaowindow.close() //동의시 문제발생
           })
           .catch(error => {
               console.log(error)

@@ -22,16 +22,13 @@
           <b-col>
             <b-row class="title_box" align-v="center">
               <b-col v-if="Mode=='viewMode'" md="auto"><div id="title">{{post.title}}</div></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
-            </b-row>
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>            </b-row>
 
             <b-row id="text">
-              <b-col id="category" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="category" v-model="category" placeholder="카테고리"></b-form-input></b-col>
-              <b-col id="people" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="numOfpeople" v-model="numOfpeople" placeholder="참여인원"></b-form-input></b-col>
-              <b-col id="price" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="price" v-model="price" placeholder="가격"></b-form-input></b-col>
+              <div>작성자: {{post.userName}}</div>
+              <b-col id="category" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
+              <b-col id="people" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
+              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
             </b-row>
 
             <b-row>
@@ -80,7 +77,8 @@ export default {
           price: '',
           place: '',
           description: '',
-          numOfpeople: ''
+          numOfpeople: '',
+          userName: ''
         }
       }
     },
@@ -100,7 +98,8 @@ export default {
         price: this.postProps.price,
         place: this.postProps.place,
         description: this.postProps.description,
-        numOfpeople: this.postProps.numOfpeople
+        numOfpeople: this.postProps.numOfpeople,
+        userName: this.postProps.userName
       },
       body: {
         title: '',
@@ -272,6 +271,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     max-width: 400px;
   }
   #description {
+    height: 100px;
     width: 300px;
     text-align: left;
     font-size: 1.2em;

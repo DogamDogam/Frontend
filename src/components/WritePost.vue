@@ -124,7 +124,8 @@ export default {
         category: '',
         numOfpeople: 1,
         description: '',
-        userId: ''
+        userId: '',
+        userName: ''
       },
       image: '',
       title: '',
@@ -190,7 +191,8 @@ export default {
             category: this.selectedItem,
             numOfpeople: this.numOfpeople,
             description: this.description,
-            userId: this.userInfo.userId
+            userId: this.userInfo.userId,
+            userName: this.userInfo.userNickname
           }
 
           axios

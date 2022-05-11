@@ -13,7 +13,8 @@
                 </b-row>
                 <b-row align-h="between">
                   <b-col align-self="start" id="place">
-                    <div>{{post.place}}</div>
+                    <div>작성자: {{post.userName}}</div>
+                    <div>장소: {{post.place}}</div>
                     <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
                   </b-col>
                   <b-col cols="3" sm="4">
@@ -46,7 +47,8 @@ export default {
         price: '',
         place: '',
         description: '',
-        numOfpeople: ''
+        numOfpeople: '',
+        userName: ''
       },
       commaPrice: '',
       post: [],
