@@ -21,7 +21,7 @@
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    gg<b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
+                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
                       <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
