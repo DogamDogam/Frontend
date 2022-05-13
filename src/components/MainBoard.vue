@@ -21,7 +21,7 @@
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
+                    gg<b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
                       <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
@@ -53,6 +53,7 @@
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
                     <p>🎈 강남대학교 소프트웨어응용학부</p>
+                    <p>배포 테스트</p>
                   </div>
             </b-row>
         </b-container>
