@@ -53,7 +53,6 @@
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
                     <p>🎈 강남대학교 소프트웨어응용학부</p>
-                    <p>배포 테스트</p>
                   </div>
             </b-row>
         </b-container>
