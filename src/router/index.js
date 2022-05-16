@@ -5,6 +5,7 @@ import MainBoard from '@/components/MainBoard'
 import ViewPost from '@/components/ViewPost'
 import DealingList from '@/components/DealingList'
 import LoginBoard from '@/components/LoginBoard'
+import MyDealingList from '@/components/MyDealingList'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/DealingList',
       name: 'DealingList',
       component: DealingList
+    },
+    {
+      path: '/MyDealingList',
+      name: 'MyDealingList',
+      component: MyDealingList
     },
     {
       path: '/LoginBoard',

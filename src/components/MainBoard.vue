@@ -21,7 +21,8 @@
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="dealingOnClick()">내 거래</b-button>
+                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중/대기중</b-button>
+                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="myDealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
                       <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
@@ -89,7 +90,10 @@ export default {
       this.viewMode = mode
     },
     dealingOnClick: function () {
-      this.$router.push({name: 'DealingList', query: { user: this.user }})
+      this.$router.push('DealingList')
+    },
+    myDealingOnClick: function () {
+      this.$router.push({name: 'MyDealingList', query: { user: this.user }})
     },
     logoutonClicked: function () {
       alert('로그아웃 성공')

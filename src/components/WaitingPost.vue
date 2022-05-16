@@ -54,19 +54,15 @@ export default {
   },
   methods: {
     getPosts () {
-      if (this.userId !== null) {
-        axios.get('http://localhost:9090/api/posts/wait/' + this.userId)
-          .then((response) => {
-            this.posts = response.data
-            console.log(response.data)
-            this.comma(this.posts)
-          }).catch((error) => {
-            console.log(error)
-            this.posts = {}
-          })
-      } else {
-        console.log('로그인시 조회 가능')
-      }
+      axios.get('http://localhost:9090/api/posts/wait')
+        .then((response) => {
+          this.posts = response.data
+          console.log(response.data)
+          this.comma(this.posts)
+        }).catch((error) => {
+          console.log(error)
+          this.posts = {}
+        })
     },
     comma (res) {
       for (var i = 0; i < res.length; i++) {
