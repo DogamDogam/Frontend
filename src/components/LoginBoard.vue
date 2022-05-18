@@ -39,9 +39,9 @@ export default {
   },
   methods: {
     LoginonClicked () {
-      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
+      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://13.124.189.169/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
       axios
-      .get('http://localhost:9090/oauth/getUser')
+      .get('http://13.124.189.169/oauth/getUser')
           .then(res => {
               console.log(res)
               this.result = res.data[0]
