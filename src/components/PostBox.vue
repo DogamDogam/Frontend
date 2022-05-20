@@ -16,12 +16,12 @@
                     <div>작성자: {{post.userName}}</div>
                     <div>장소: {{post.place}}</div>
                     <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
+                    <div>작성일: {{post.createDate.substr(0,10)}} {{post.createDate.substr(11,8)}}</div>
                   </b-col>
-                  <b-col cols="3" sm="4">
-                    <b-icon icon="heart-fill" class="gap_margin_5px_horizontal"
+                  <b-col cols="3" sm="4">                    <!-- <b-icon icon="heart-fill" class="gap_margin_5px_horizontal"
                       :style="currentMode == 'grid' ? 'color:red;' : ''"
                       v-on:click="greet()"
-                    />
+                    /> -->
                     <b-button @click="onViewModeChanged(index)">상세보기</b-button>
                   </b-col>
                 </b-row>
@@ -48,7 +48,8 @@ export default {
         place: '',
         description: '',
         numOfpeople: '',
-        userName: ''
+        userName: '',
+        createDate: ''
       },
       commaPrice: '',
       post: [],

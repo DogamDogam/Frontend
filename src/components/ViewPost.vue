@@ -22,13 +22,16 @@
           <b-col>
             <b-row class="title_box" align-v="center">
               <b-col v-if="Mode=='viewMode'" md="auto"><div id="title">{{post.title}}</div></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>            </b-row>
-
-            <b-row id="text">
+              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
+            </b-row>
+            <b-row style="text-align: right; padding-right: 200px;">
               <div>작성자: {{post.userName}}</div>
+              <div>작성일: {{post.createDate.substr(0,10)}} {{post.createDate.substr(11,8)}}</div>
+            </b-row>
+            <b-row id="text">
               <b-col id="category" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
               <b-col id="people" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
-              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
+              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}원</b-badge></b-col>
             </b-row>
 
             <b-row>
@@ -78,7 +81,8 @@ export default {
           place: '',
           description: '',
           numOfpeople: '',
-          userName: ''
+          userName: '',
+          createDate: ''
         }
       }
     },
