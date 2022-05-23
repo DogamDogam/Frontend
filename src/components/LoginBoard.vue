@@ -22,6 +22,7 @@
 
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 export default {
@@ -35,9 +36,9 @@ export default {
   },
   methods: {
     LoginonClicked () {
-      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
+      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri='+ URL + '/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
       setTimeout(() => {
-        axios.get('http://localhost:9090/oauth/getUser')
+        axios.get(URL+'/oauth/getUser')
         .then(res => {
               this.userInfo = res.data
               console.log(this.userInfo)
