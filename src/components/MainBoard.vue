@@ -62,6 +62,7 @@
 
 <script>
 // import axios from 'axios'
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
@@ -136,6 +137,7 @@ export default {
     }
   },
   created () {
+    console.log(URL)
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode

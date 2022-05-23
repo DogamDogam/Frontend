@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 import CommentBoard from './CommentBoard.vue'
@@ -117,7 +118,7 @@ export default {
     getPost (postId) {
       axios
         .get(
-          'http://localhost:9090/api/post/' + postId
+          URL + '/api/post/' + postId
         ).then((response) => {
           console.log(response.data)
           this.post = response.data
@@ -143,7 +144,7 @@ export default {
         if (value === true) {
           axios
             .delete(
-              'http://localhost:9090/api/post/' + this.postId)
+              URL + '/api/post/' + this.postId)
             .then((response) => {
               alert('삭제 완료되었습니다.')
               this.$router.go()
@@ -174,7 +175,7 @@ export default {
         }
         axios
           .put(
-            'http://localhost:9090/api/post/' + this.postId,
+            URL + '/api/post/' + this.postId,
             JSON.stringify(this.body),
             {
               headers: {

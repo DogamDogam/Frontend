@@ -26,6 +26,7 @@
     </div>
 </template>
 <script>
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 import axios from 'axios'
 export default {
@@ -55,7 +56,7 @@ export default {
   methods: {
     getPosts () {
       if (this.userId !== null) {
-        axios.get('http://localhost:9090/api/posts/purchase/' + this.userId)
+        axios.get(URL + '/api/posts/purchase/' + this.userId)
           .then((response) => {
             this.posts = response.data
             console.log(response.data)

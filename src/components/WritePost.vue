@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 export default {
   props: {
@@ -197,7 +198,7 @@ export default {
 
           axios
             .post(
-              'http://localhost:9090/api/posts',
+              URL + '/api/posts',
               JSON.stringify(this.post),
               {
                 headers: {

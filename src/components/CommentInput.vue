@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 export default {
   props: {
@@ -56,7 +57,7 @@ export default {
       }
       console.log(this.postId)
       axios.post(
-        'http://localhost:9090/api/reply/' + this.postId,
+        URL + '/api/reply/' + this.postId,
         JSON.stringify(this.body),
         {
           headers: {

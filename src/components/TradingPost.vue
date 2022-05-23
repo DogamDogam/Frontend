@@ -26,6 +26,7 @@
     </div>
 </template>
 <script>
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 import axios from 'axios'
 export default {
@@ -49,7 +50,7 @@ export default {
   },
   methods: {
     getPosts () {
-      axios.get('http://localhost:9090/api/posts/trade')
+      axios.get(URL + '/api/posts/trade')
         .then((response) => {
           this.totalPage = response.data.totalPages
           EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달

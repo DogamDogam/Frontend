@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 export default {
@@ -44,7 +45,7 @@ export default {
     getComment () {
       axios
         .get(
-          'http://localhost:9090/api/reply/' + this.postId
+          URL + '/api/reply/' + this.postId
         ).then((response) => {
           this.replys = response.data
           console.log(this.replys.length)
