@@ -60,6 +60,7 @@
     </div>
 </template>
 
+<script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
 <script>
 // import axios from 'axios'
 import {URL} from '../url/BackendUrl'
@@ -159,7 +160,10 @@ export default {
     },
     isLogined: function () {
       if (this.isLogined === true) {
-        this.user = JSON.parse(this.$route.query.data).userInfo
+        var CryptoJS = require("crypto-js");
+        var ciphertext = this.$route.query.data.userInfo
+        var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123')
+        this.user = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
         console.log(this.user)
       } else {
         this.user = {}
@@ -167,10 +171,11 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.query.data != null) {
-      this.user = JSON.parse(this.$route.query.data).userInfo
-      this.isLogined = true
-    }
+    this.$nextTick(function() {
+      if (this.$route.query.data !== null) {
+        this.isLogined = true
+      }
+    })
   }
 }
 </script>

@@ -21,8 +21,10 @@
 </template>
 
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
 import {URL} from '../url/BackendUrl'
+import {TERM} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 export default {
@@ -36,13 +38,15 @@ export default {
   },
   methods: {
     LoginonClicked () {
+      var CryptoJS = require("crypto-js");
       var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri='+ URL + '/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
       setTimeout(() => {
-        axios.get(URL+'/oauth/getUser')
+        axios.get(URL + '/oauth/getUser')
         .then(res => {
               this.userInfo = res.data
               console.log(this.userInfo)
-              this.$router.push({name: 'MainBoard', query: { data : JSON.stringify( {userInfo: this.userInfo})}})
+              var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.userInfo), 'secret key 123').toString();
+              this.$router.push({name: 'MainBoard', query: { data : { userInfo : ciphertext}} })
             //   kakaowindow.close() //동의시 문제발생
           })
           .catch(error => {
