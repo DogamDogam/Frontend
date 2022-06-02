@@ -46,7 +46,7 @@ export default {
               this.userInfo = res.data
               console.log(this.userInfo)
               var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.userInfo), 'secret key 123').toString();
-              this.$router.push({name: 'MainBoard', query: { data : { userInfo : ciphertext}} })
+              this.$router.push({name: 'MainBoard', params: { data : { userInfo : ciphertext}} })
             //   kakaowindow.close() //동의시 문제발생
           })
           .catch(error => {

@@ -30,16 +30,19 @@ export default new Router({
     {
       path: '/DealingList',
       name: 'DealingList',
-      component: DealingList
+      component: DealingList,
+      props: true
     },
     {
       path: '/MyDealingList',
       name: 'MyDealingList',
-      component: MyDealingList
+      component: MyDealingList,
+      props: true
     },
     {
       path: '/LoginBoard',
       name: 'LoginBoard',
-      component: LoginBoard
+      component: LoginBoard,
+      props: true
     }
   ]})

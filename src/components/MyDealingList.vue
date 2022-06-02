@@ -38,8 +38,8 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.query.user !== null) {
-      this.userId = this.$route.query.user.userId
+    if (this.$route.params.user !== null) {
+      this.userId = this.$route.params.user.userId
     }
   },
   methods: {

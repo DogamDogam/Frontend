@@ -60,7 +60,6 @@
     </div>
 </template>
 
-<script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
 <script>
 // import axios from 'axios'
 import {URL} from '../url/BackendUrl'
@@ -95,7 +94,7 @@ export default {
       this.$router.push('DealingList')
     },
     myDealingOnClick: function () {
-      this.$router.push({name: 'MyDealingList', query: { user: this.user }})
+      this.$router.push({name: 'MyDealingList', params: { user: this.user }})
     },
     logoutonClicked: function () {
       alert('로그아웃 성공')
@@ -160,10 +159,7 @@ export default {
     },
     isLogined: function () {
       if (this.isLogined === true) {
-        var CryptoJS = require("crypto-js");
-        var ciphertext = this.$route.query.data.userInfo
-        var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123')
-        this.user = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+        this.user = JSON.parse(this.$route.params.data).userInfo
         console.log(this.user)
       } else {
         this.user = {}
@@ -171,11 +167,10 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(function() {
-      if (this.$route.query.data !== null) {
-        this.isLogined = true
-      }
-    })
+    if (this.$route.params.data != null) {
+      this.user = JSON.parse(this.$route.params.data).userInfo
+      this.isLogined = true
+    }
   }
 }
 </script>
