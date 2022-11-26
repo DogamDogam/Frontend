@@ -24,14 +24,14 @@
               <b-col v-if="Mode=='viewMode'" md="auto"><div id="title">{{post.title}}</div></b-col>
               <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="title" v-model="title" placeholder="제목"></b-form-input></b-col>
             </b-row>
-
+            <b-row style="text-align: right; padding-right: 200px;">
+              <div>작성자: {{post.userName}}</div>
+              <div>작성일: {{post.createDate.substr(0,10)}} {{post.createDate.substr(11,8)}}</div>
+            </b-row>
             <b-row id="text">
-              <b-col id="category" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="category" v-model="category" placeholder="카테고리"></b-form-input></b-col>
-              <b-col id="people" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="numOfpeople" v-model="numOfpeople" placeholder="참여인원"></b-form-input></b-col>
-              <b-col id="price" v-if="Mode=='viewMode'" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}</b-badge></b-col>
-              <b-col v-else-if="Mode=='updateMode'" md="auto"><b-form-input :id="price" v-model="price" placeholder="가격"></b-form-input></b-col>
+              <b-col id="category" cols="12" md="auto"><b-badge variant="success" pill>{{post.category}}</b-badge></b-col>
+              <b-col id="people" cols="12" md="auto"><b-badge variant="success" pill>{{post.numOfpeople}}명 모집</b-badge></b-col>
+              <b-col id="price" cols="12" md="auto"><b-badge variant="success" pill>{{post.price}}원</b-badge></b-col>
             </b-row>
 
             <b-row>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 import CommentBoard from './CommentBoard.vue'
@@ -80,7 +81,9 @@ export default {
           price: '',
           place: '',
           description: '',
-          numOfpeople: ''
+          numOfpeople: '',
+          userName: '',
+          createDate: ''
         }
       }
     },
@@ -100,7 +103,8 @@ export default {
         price: this.postProps.price,
         place: this.postProps.place,
         description: this.postProps.description,
-        numOfpeople: this.postProps.numOfpeople
+        numOfpeople: this.postProps.numOfpeople,
+        userName: this.postProps.userName
       },
       body: {
         title: '',
@@ -114,7 +118,7 @@ export default {
     getPost (postId) {
       axios
         .get(
-          'http://localhost:9090/api/post/' + postId
+          URL + '/api/post/' + postId
         ).then((response) => {
           console.log(response.data)
           this.post = response.data
@@ -140,7 +144,7 @@ export default {
         if (value === true) {
           axios
             .delete(
-              'http://localhost:9090/api/post/' + this.postId)
+              URL + '/api/post/' + this.postId)
             .then((response) => {
               alert('삭제 완료되었습니다.')
               this.$router.go()
@@ -171,7 +175,7 @@ export default {
         }
         axios
           .put(
-            'http://localhost:9090/api/post/' + this.postId,
+            URL + '/api/post/' + this.postId,
             JSON.stringify(this.body),
             {
               headers: {
@@ -272,6 +276,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     max-width: 400px;
   }
   #description {
+    height: 100px;
     width: 300px;
     text-align: left;
     font-size: 1.2em;

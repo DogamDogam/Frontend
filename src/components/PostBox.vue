@@ -13,14 +13,15 @@
                 </b-row>
                 <b-row align-h="between">
                   <b-col align-self="start" id="place">
-                    <div>{{post.place}}</div>
+                    <div>작성자: {{post.userName}}</div>
+                    <div>장소: {{post.place}}</div>
                     <div>{{post.price}} 원 / {{post.numOfpeople}}명 모집</div>
+                    <div>작성시간: {{post.createDate.substr(0,10)}} {{post.createDate.substr(11,8)}}</div>
                   </b-col>
-                  <b-col cols="3" sm="4">
-                    <b-icon icon="heart-fill" class="gap_margin_5px_horizontal"
+                  <b-col cols="3" sm="4">                    <!-- <b-icon icon="heart-fill" class="gap_margin_5px_horizontal"
                       :style="currentMode == 'grid' ? 'color:red;' : ''"
                       v-on:click="greet()"
-                    />
+                    /> -->
                     <b-button @click="onViewModeChanged(index)">상세보기</b-button>
                   </b-col>
                 </b-row>
@@ -30,6 +31,7 @@
     </div>
 </template>
 <script>
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 import axios from 'axios'
 export default {
@@ -46,7 +48,9 @@ export default {
         price: '',
         place: '',
         description: '',
-        numOfpeople: ''
+        numOfpeople: '',
+        userName: '',
+        createDate: ''
       },
       commaPrice: '',
       post: [],
@@ -72,7 +76,7 @@ export default {
       EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 MainBoard에에 전달
     },
     getPosts () {
-      axios.get('http://localhost:9090/api/posts/?page=' + this.pageNum)
+      axios.get(URL + '/api/posts/?page=' + this.pageNum)
         .then((response) => {
           this.emitTotalPageNum(response)
           this.posts = response.data.content
@@ -110,7 +114,7 @@ export default {
       console.log('다시 0이 되었습니다: ' + this.pageNum)
       axios
         .get(
-          'http://localhost:9090/api/posts/category/' + categoryNum + '?page=' + this.pageNum)
+          URL + '/api/posts/category/' + categoryNum + '?page=' + this.pageNum)
         .then((response) => {
           this.emitTotalPageNum(response)
           this.posts = response.data.content

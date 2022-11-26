@@ -2,20 +2,26 @@
     <div>
         <b-container class="body">
             <b-row class="head">
-              <p @click="$router.go(-1)">DagamDagam</p>
+                <b-col style="text-align: left">
+                  <p @click="$router.go(-1)">DagamDagam</p>
+                </b-col>
             </b-row>
             <b-row class="body_button" align-v="center">
                 <b-col sm>
-                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('TradingPost')">거래중</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('SalePosts')">판매목록</b-button>
                 </b-col>
                 <b-col sm>
-                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('WaitingPost')">대기중</b-button>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('PurchasedPosts')">구매목록</b-button>
+                </b-col>
+                <b-col sm>
+                    <b-button block class="w-100 p-3" variant="outline-warning" @click="onViewModeChanged('likeList')">관심목록</b-button>
                 </b-col>
             </b-row>
             <b-row class="body_page">
                 <b-col>
-                    <trading-post v-if="viewMode == 'TradingPost'"></trading-post>
-                    <waiting-post v-if="viewMode =='WaitingPost'"></waiting-post>
+                    <like-list :userId="userId" v-if="viewMode == 'likeList'"></like-list>
+                    <sale-posts :userId="userId" v-if="viewMode == 'SalePosts'"></sale-posts>
+                    <purchase-posts :userId="userId" v-if="viewMode =='PurchasedPosts'"></purchase-posts>
                 </b-col>
             </b-row>
         </b-container>

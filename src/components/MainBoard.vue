@@ -21,17 +21,18 @@
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
+                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중/대기중</b-button>
+                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="myDealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning" v-if="!isLogined">로그인</b-button>
+                      <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
-                    <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
+                    <b-button v-if="isLogined" id="button" variant="outline-warning" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page-color" cols="2" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                 <b-col>
                   <div>
-                    <post-list @postOnclicked="postOnclicked"></post-list>
+                    <post-list @postOnclicked="postOnclicked" :userInfo="user"></post-list>
                     <!--<post-box @postOnClicked="postOnClicked" style="padding: 5px" v-bind:categoryProps="sort_text"></post-box></b-col>-->
                   </div>
                 </b-col>
@@ -52,7 +53,6 @@
             <b-row id="main-page-color" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
-                    <p>📞 010-0000-000</p>
                     <p>🎈 강남대학교 소프트웨어응용학부</p>
                   </div>
             </b-row>
@@ -62,6 +62,7 @@
 
 <script>
 // import axios from 'axios'
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
@@ -92,6 +93,9 @@ export default {
     dealingOnClick: function () {
       this.$router.push('DealingList')
     },
+    myDealingOnClick: function () {
+      this.$router.push({name: 'MyDealingList', params: { user: this.user }})
+    },
     logoutonClicked: function () {
       alert('로그아웃 성공')
       this.isLogined = false
@@ -107,19 +111,6 @@ export default {
     postOnclicked: function (result) {
       this.postFromPostBox = result
     },
-    // getUser: function () {
-    //   axios
-    //     .get('http://localhost:9090/oauth/kakao/getUser')
-    //     .then(res => {
-    //       console.log(res.data[0])
-    //       // this.result = res.data[0]
-    //       // this.getUserInfo(this.result)
-    //     })
-    //     .catch(error => {
-    //       console.log(error)
-    //       alert('로그인 실패')
-    //     })
-    // },
     increasePageNum: function () {
       this.$refs.prevBtn.disabled = false // 이전 버튼 비활성화
       if (this.lastPage === false) { // 마지막 페이지가 아니면
@@ -146,6 +137,7 @@ export default {
     }
   },
   created () {
+    console.log(URL)
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode
@@ -164,11 +156,19 @@ export default {
         this.totalPageNum = totalPageNum
         console.log(this.totalPageNum)
       })
+    },
+    isLogined: function () {
+      if (this.isLogined === true) {
+        this.user = JSON.parse(this.$route.params.data).userInfo
+        console.log(this.user)
+      } else {
+        this.user = {}
+      }
     }
   },
   mounted () {
-    if (this.$route.query.data != null) {
-      this.user = JSON.parse(this.$route.query.data).userInfo
+    if (this.$route.params.data != null) {
+      this.user = JSON.parse(this.$route.params.data).userInfo
       this.isLogined = true
     }
   }

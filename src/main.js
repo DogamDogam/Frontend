@@ -21,6 +21,8 @@ import LikeList from './components/LikeList'
 import LoginBoard from './components/LoginBoard'
 import TradingPost from './components/TradingPost'
 import WaitingPost from './components/WaitingPost'
+import SalePosts from './components/SalePosts'
+import PurchasedPosts from './components/PurchasedPosts'
 
 export const EventBus = new Vue()
 
@@ -39,6 +41,8 @@ Vue.component('like-list', LikeList)
 Vue.component('login-board', LoginBoard)
 Vue.component('trading-post', TradingPost)
 Vue.component('waiting-post', WaitingPost)
+Vue.component('sale-posts', SalePosts)
+Vue.component('purchase-posts', PurchasedPosts)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

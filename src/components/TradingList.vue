@@ -11,7 +11,17 @@
             </select>
         </div>
         <div>
-            <trading-post></trading-post>
+            <trading-post :userId="userId"></trading-post>
         </div>
     </div>
 </template>
+<script>
+export default {
+  name: 'TradingList',
+  props: {
+    userId: {
+      type: Number
+    }
+  }
+}
+</script>

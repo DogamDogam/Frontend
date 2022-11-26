@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 export default {
   props: {
@@ -40,7 +41,9 @@ export default {
       user_icon: this.userInfo.userImage,
       body: {
         image: '',
-        content: ''
+        content: '',
+        userId: '',
+        userName: ''
       }
     }
   },
@@ -49,11 +52,12 @@ export default {
       this.body = {
         image: this.userInfo.userImage,
         content: this.comment,
-        userId: this.userInfo.userId
+        userId: this.userInfo.userId,
+        userName: this.userInfo.userNickname
       }
       console.log(this.postId)
       axios.post(
-        'http://localhost:9090/api/reply/' + this.postId,
+        URL + '/api/reply/' + this.postId,
         JSON.stringify(this.body),
         {
           headers: {

@@ -31,6 +31,11 @@ import {EventBus} from '../main'
 import axios from 'axios'
 export default {
   name: 'Posts',
+  props: {
+    userId: {
+      type: Number
+    }
+  },
   data () {
     return {
       posts: {
@@ -50,17 +55,19 @@ export default {
   },
   methods: {
     getPosts () {
-      axios.get(URL + '/api/posts/trade')
-        .then((response) => {
-          this.totalPage = response.data.totalPages
-          EventBus.$emit('totalPageNum', this.totalPage) // pageNum을 PostBox에 전달
-          console.log(response.data)
-          this.posts = response.data
-          this.comma(this.posts)
-        }).catch((error) => {
-          console.log(error)
-          this.posts = {}
-        })
+      if (this.userId !== null) {
+        axios.get(URL + '/api/posts/purchase/' + this.userId)
+          .then((response) => {
+            this.posts = response.data
+            console.log(response.data)
+            this.comma(this.posts)
+          }).catch((error) => {
+            console.log(error)
+            this.posts = {}
+          })
+      } else {
+        console.log('로그인시 조회 가능')
+      }
     },
     comma (res) {
       for (var i = 0; i < res.length; i++) {

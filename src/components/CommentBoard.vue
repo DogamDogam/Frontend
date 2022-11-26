@@ -6,6 +6,7 @@
                 <b-avatar id="user_icon" rounded :src="user_icon"></b-avatar>
             </b-col>
             <b-col cols="8">
+              <div>{{reply.userName}}</div>
                 <div id="comment_content">{{reply.content}}</div>
             </b-col>
             <b-col>
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 export default {
@@ -32,7 +34,8 @@ export default {
       postId: '',
       replys: {
         image: '',
-        content: ''
+        content: '',
+        userName: ''
       },
       reply: [],
       check: false
@@ -42,7 +45,7 @@ export default {
     getComment () {
       axios
         .get(
-          'http://localhost:9090/api/reply/' + this.postId
+          URL + '/api/reply/' + this.postId
         ).then((response) => {
           this.replys = response.data
           console.log(this.replys.length)
