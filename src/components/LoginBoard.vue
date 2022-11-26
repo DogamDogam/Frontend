@@ -21,7 +21,10 @@
 </template>
 
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
+import {URL} from '../url/BackendUrl'
+import {TERM} from '../url/BackendUrl'
 import axios from 'axios'
 import {EventBus} from '../main'
 export default {
@@ -29,34 +32,28 @@ export default {
   data () {
       return {
           result: [],
-          userInfo: {
-              userId: '',
-              userNickname: '',
-              userEmail: '',
-              userImage: '',
-          }
+          userInfo: {},
+          userEmail: ''
       }
   },
   methods: {
     LoginonClicked () {
-      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
-      axios
-      .get('http://localhost:9090/oauth/getUser')
-          .then(res => {
-              console.log(res)
-              this.result = res.data[0]
-              this.getUserInfo(this.result)
-              EventBus.$emit('getInfoFromLogin', this.userInfo)
-              this.$router.push({name: 'MainBoard', params: { userInfo: this.userInfo}})
+      var CryptoJS = require("crypto-js");
+      var kakaowindow = window.open('https://kauth.kakao.com/oauth/authorize?client_id=32563be2662a64d66f1e3547267b03df&redirect_uri='+ URL + '/oauth/kakao&response_type=code', 'PopupWin', 'width=500,height=600')
+      setTimeout(() => {
+        axios.get(URL + '/oauth/getUser')
+        .then(res => {
+              this.userInfo = res.data
+              console.log(this.userInfo)
+              var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.userInfo), 'secret key 123').toString();
+              this.$router.push({name: 'MainBoard', params: { data : { userInfo : ciphertext}} })
+            //   kakaowindow.close() //동의시 문제발생
           })
           .catch(error => {
               console.log(error)
               alert('로그인 실패')
           })
-      kakaowindow.close()
-    },
-    getUserInfo (res) {
-        this.userInfo = res
+      }, 500)
     }
   }
 }

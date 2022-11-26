@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 export default {
   props: {
@@ -40,19 +41,23 @@ export default {
       user_icon: this.userInfo.userImage,
       body: {
         image: '',
-        content: ''
+        content: '',
+        userId: '',
+        userName: ''
       }
     }
   },
   methods: {
     commentOnClick: function () {
       this.body = {
-        image: '임시image',
-        content: this.comment
+        image: this.userInfo.userImage,
+        content: this.comment,
+        userId: this.userInfo.userId,
+        userName: this.userInfo.userNickname
       }
       console.log(this.postId)
       axios.post(
-        'http://localhost:9090/api/reply/' + this.postId,
+        URL + '/api/reply/' + this.postId,
         JSON.stringify(this.body),
         {
           headers: {
@@ -62,11 +67,11 @@ export default {
       ).then((response) => {
         console.log(response)
         alert('댓글 작성 완료')
+        this.comment = ''
+        this.$router.go()
       }).catch((error) => {
         console.log(error)
       })
-      this.comment = ''
-      this.$router.go()
     }
   },
   watch: {

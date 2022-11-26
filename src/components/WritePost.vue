@@ -105,8 +105,14 @@
 </template>
 
 <script>
+import {URL} from '../url/BackendUrl'
 import axios from 'axios'
 export default {
+  props: {
+    userInfo: {
+      type: Object
+    }
+  },
   data () {
     return {
       items: ['식재료', '배달비', '물품'],
@@ -118,7 +124,9 @@ export default {
         price: '',
         category: '',
         numOfpeople: 1,
-        description: ''
+        description: '',
+        userId: '',
+        userName: ''
       },
       image: '',
       title: '',
@@ -131,7 +139,8 @@ export default {
       focusOnPrice: false,
       focusOnPlace: false,
       focusOnDescription: false,
-      numberCheck: false
+      numberCheck: false,
+      userId: ''
     }
   },
   methods: {
@@ -171,42 +180,50 @@ export default {
       return true
     },
     onPostClicked () {
-      if (this.postNullCheck()) {
-        this.post = {
-          image: this.image,
-          title: this.title,
-          place: this.place,
-          price: this.price,
-          category: this.selectedItem,
-          numOfpeople: this.numOfpeople,
-          description: this.description
-        }
+      if (this.userId === '') {
+        alert('로그인을 해주세요!')
+      } else {
+        if (this.postNullCheck()) {
+          this.post = {
+            image: this.image,
+            title: this.title,
+            place: this.place,
+            price: this.price,
+            category: this.selectedItem,
+            numOfpeople: this.numOfpeople,
+            description: this.description,
+            userId: this.userInfo.userId,
+            userName: this.userInfo.userNickname
+          }
 
-        axios
-          .post(
-            'http://localhost:9090/api/posts',
-            JSON.stringify(this.post),
-            {
-              headers: {
-                'Content-Type': 'application/json'
-              }
+          axios
+            .post(
+              URL + '/api/posts',
+              JSON.stringify(this.post),
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then(response => {
+              console.log('글쓰기 성공 : ' + response)
+              alert('글쓰기 성공!')
+              // this.resetPost()
+              this.$router.go()
             })
-          .then(response => {
-            console.log('글쓰기 성공 : ' + response)
-            // this.resetPost()
-            this.$router.go()
-          })
-          .catch(error => {
-            console.log(error)
-            alert('글쓰기 실패!')
-            this.resetPost()
-          })
+            .catch(error => {
+              console.log(error)
+              alert('글쓰기 실패!')
+              this.resetPost()
+            })
+        }
       }
     },
     onCancelClicked () {
       this.resetPost()
     }
-
+  },
+  created () {
   },
   computed: {
     validateTitle: function () {
@@ -224,6 +241,11 @@ export default {
     },
     validateDescription: function () {
       return this.description != null && this.description !== '' && this.description.length <= 300
+    }
+  },
+  watch: {
+    userInfo () {
+      this.userId = this.userInfo.userId
     }
   }
 }

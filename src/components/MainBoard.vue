@@ -10,28 +10,29 @@
                 </b-row>
                 <b-col cols="auto">
                     <b-dropdown v-bind:text="sort_text" dropright>
-                      <b-dropdown-item @click="sortOnSelected()">정렬</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">정렬</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="ingredientOnSelected()">식재료</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">식재료</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="deliveryOnSelected()">배달비</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">배달비</b-dropdown-item>
                       <b-dropdown-divider></b-dropdown-divider>
-                      <b-dropdown-item @click="goodsOnSelected()">물품</b-dropdown-item>
+                      <b-dropdown-item @click="sortOnSelected($event)">물품</b-dropdown-item>
                     </b-dropdown>
                 </b-col>
                 <b-col cols="4" md style="text-align: right">
                     <b-button id= "button" variant="outline-warning" @click="onViewModeChanged('writepost')">글쓰기</b-button>
-                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중</b-button>
+                    <b-button id= "button" variant="outline-warning" @click="dealingOnClick()">거래중/대기중</b-button>
+                    <b-button v-if="isLogined" id= "button" variant="outline-warning" @click="myDealingOnClick()">내 거래</b-button>
                     <router-link to="/LoginBoard">
-                      <b-button id= "button" variant="outline-warning" v-if="!isLogined">로그인</b-button>
+                      <b-button v-if="!isLogined" id= "button" variant="outline-warning">로그인</b-button>
                     </router-link>
-                    <b-button id="button" variant="outline-warning" v-if="isLogined" @click="logoutonClicked">로그아웃</b-button>
+                    <b-button v-if="isLogined" id="button" variant="outline-warning" @click="logoutonClicked">로그아웃</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page-color" cols="2" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                 <b-col>
                   <div>
-                    <post-list @postOnclicked="postOnclicked"></post-list>
+                    <post-list @postOnclicked="postOnclicked" :userInfo="user"></post-list>
                     <!--<post-box @postOnClicked="postOnClicked" style="padding: 5px" v-bind:categoryProps="sort_text"></post-box></b-col>-->
                   </div>
                 </b-col>
@@ -41,18 +42,17 @@
                 </b-col>
                 -->
                 <b-col>
-                    <write-post id="writepost" v-if="viewMode =='writepost'" style="overflow: auto;"></write-post>
+                    <write-post id="writepost" v-if="viewMode =='writepost'" :userInfo="user" style="overflow: auto;"></write-post>
                     <view-post v-bind:idProps="id" :postProp="postFromPostBox" :userInfo="user" v-if="viewMode =='viewpost'"></view-post>
                 </b-col>
                 <b-col style="text-align: center;">
-                  <b-button @click="decreasePageNum">이전</b-button>
+                  <b-button id="prevBtn" ref="prevBtn" @click="decreasePageNum">이전</b-button>
                   <b-button id="nextBtn" ref="nextBtn" @click="increasePageNum">다음</b-button>
                 </b-col>
             </b-row>
             <b-row id="main-page-color" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                   <div class="jumbotron text-center footer">
                     <p>🤩 Created by Team 다감다감</p>
-                    <p>📞 010-0000-000</p>
                     <p>🎈 강남대학교 소프트웨어응용학부</p>
                   </div>
             </b-row>
@@ -62,14 +62,10 @@
 
 <script>
 // import axios from 'axios'
+import {URL} from '../url/BackendUrl'
 import {EventBus} from '../main'
 export default {
   name: 'MainBoard',
-  props: {
-    userInfo: {
-      type: Object
-    }
-  },
   data () {
     return {
       viewMode: 'writepost',
@@ -97,44 +93,26 @@ export default {
     dealingOnClick: function () {
       this.$router.push('DealingList')
     },
+    myDealingOnClick: function () {
+      this.$router.push({name: 'MyDealingList', params: { user: this.user }})
+    },
     logoutonClicked: function () {
       alert('로그아웃 성공')
       this.isLogined = false
       this.user = null
     },
-    sortOnSelected: function () {
-      this.sort_text = '정렬'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
+    sendPostCategory (sortText) {
+      EventBus.$emit('eventGiveMainSort', sortText)
     },
-    deliveryOnSelected: function () {
-      this.sort_text = '배달비'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
-    },
-    ingredientOnSelected: function () {
-      this.sort_text = '식재료'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
-    },
-    goodsOnSelected: function () {
-      this.sort_text = '물품'
-      EventBus.$emit('eventGiveMainSort', this.sort_text)
+    sortOnSelected: function (event) {
+      this.sort_text = event.target.innerHTML
+      this.sendPostCategory(this.sort_text)
     },
     postOnclicked: function (result) {
       this.postFromPostBox = result
     },
-    // getUser: function () {
-    //   axios
-    //     .get('http://localhost:9090/oauth/kakao/getUser')
-    //     .then(res => {
-    //       console.log(res.data[0])
-    //       // this.result = res.data[0]
-    //       // this.getUserInfo(this.result)
-    //     })
-    //     .catch(error => {
-    //       console.log(error)
-    //       alert('로그인 실패')
-    //     })
-    // },
     increasePageNum: function () {
+      this.$refs.prevBtn.disabled = false // 이전 버튼 비활성화
       if (this.lastPage === false) { // 마지막 페이지가 아니면
         this.pageNum++ // 다음 페이지
       } else { // 마지막 페이지라면
@@ -149,25 +127,21 @@ export default {
       if (this.pageNum >= this.totalPageNum) {
         this.pageNum = this.totalPageNum - 1
       }
-      if (this.pageNum === 0) alert('첫페이지입니다.')
-      else {
+      if (this.pageNum === 0) {
+        alert('첫페이지입니다.')
+        this.$refs.prevBtn.disabled = true // 이전 버튼 비활성화
+      } else {
         this.pageNum--
         this.$refs.nextBtn.disabled = false
       }
     }
   },
   created () {
-    if (this.$route.params.userInfo != null) {
-      this.user = this.$route.params.userInfo
-      this.isLogined = true
-    }
+    console.log(URL)
     EventBus.$on('eventGiveMain', mode => {
       console.log('Main 받았다: ', mode)
       this.id = mode
       this.onViewModeChanged('viewpost')
-    })
-    EventBus.$on('totalPageNum', totalPageNum => {
-      this.totalPageNum = totalPageNum
     })
     // this.getUser()
   },
@@ -176,6 +150,26 @@ export default {
       if (!this.lastPage) {
         EventBus.$emit('sendPageNum', this.pageNum) // pageNum을 PostBox에 전달
       }
+    },
+    sort_text: function () {
+      EventBus.$on('totalPageNum', totalPageNum => {
+        this.totalPageNum = totalPageNum
+        console.log(this.totalPageNum)
+      })
+    },
+    isLogined: function () {
+      if (this.isLogined === true) {
+        this.user = JSON.parse(this.$route.params.data).userInfo
+        console.log(this.user)
+      } else {
+        this.user = {}
+      }
+    }
+  },
+  mounted () {
+    if (this.$route.params.data != null) {
+      this.user = JSON.parse(this.$route.params.data).userInfo
+      this.isLogined = true
     }
   }
 }
